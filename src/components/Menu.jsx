@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Menu() {
   const navigate = useNavigate();
-  const usuario = localStorage.getItem("usuario");
+  const usuario = localStorage.getItem("usuario").replace(".", " ");
 
   return (
     <div>
@@ -25,7 +25,14 @@ function Menu() {
       >
         Empleados
       </Button>
-      <Button variant="outlined">Llamadas de Atencion</Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate("/llamadas");
+        }}
+      >
+        Llamadas de Atencion
+      </Button>
       <Button
         variant="outlined"
         onClick={() => {
@@ -34,7 +41,14 @@ function Menu() {
       >
         Puestos
       </Button>
-      <Button variant="outlined">Usuarios</Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate("/usuarios");
+        }}
+      >
+        Usuarios
+      </Button>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, FormControl, InputLabel, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, esES } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -7,31 +7,18 @@ import { useEffect } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
-import moment from "moment";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 50 },
+  { field: "id", headerName: "ID", width: 90 },
   {
-    field: "nombreCompleto",
-    headerName: "Nombre Completo",
+    field: "username",
+    headerName: "Usuario",
+    width: 200,
+  },
+  {
+    field: "email",
+    headerName: "Correo",
     width: 300,
-    valueGetter: (nombreCompleto) =>
-      nombreCompleto.row.attributes.nombreCompleto,
-  },
-  {
-    field: "estado",
-    headerName: "Estado",
-    width: 200,
-    valueGetter: (estado) => estado.row.attributes.estado,
-  },
-  {
-    field: "inicioLabores",
-    headerName: "Inicio de Labores",
-    width: 200,
-    valueGetter: (inicioLabores) =>
-      moment(inicioLabores.row.attributes.inicioLabores).format("L"),
   },
 ];
 
@@ -47,9 +34,7 @@ const style = {
   p: 4,
 };
 
-export default function Pruebas() {
-  const [estado, setEstado] = useState("");
-
+export default function Usuarios() {
   const { register, handleSubmit } = useForm();
 
   //modal
@@ -60,7 +45,7 @@ export default function Pruebas() {
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
 
-  const [empleados, setEmpleados] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const token = localStorage.getItem("token");
   const [rowSelected, setRowSelected] = useState([]);
 
@@ -72,36 +57,36 @@ export default function Pruebas() {
 
   const update = () => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
-      .then((res) => setEmpleados(res.data.data));
+      .get("http://localhost:1337/api/users", config)
+      .then((res) => setUsuarios(res.data.data));
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
-      .then((res) => setEmpleados(res.data.data));
+      .get("http://localhost:1337/api/users", config)
+      // .then((res) => console.log(res.data));
+      .then((res) => setUsuarios(res.data));
   }, []);
 
   const borrar = () => {
     const rowText = rowSelected.toString();
     axios
-      .delete(`http://localhost:1337/api/empleados/${rowText}`, config)
+      .delete(`http://localhost:1337/api/users/${rowText}`, config)
       .then(() => update());
   };
   const submit = (data) => {
-    const nameTexto = data.identifierName;
-    const estadoTexto = estado;
-    const fechaTexto = data.identifierFecha;
+    const userTexto = data.identifierUser;
+    const emailTexto = data.identifierEmail;
+    const passTexto = data.identifierPassword;
 
     const dataJson = {
-      data: {
-        nombreCompleto: nameTexto,
-        estado: estadoTexto,
-        inicioLabores: fechaTexto,
-      },
+      username: userTexto,
+      email: emailTexto,
+      password: passTexto,
     };
+
     axios
-      .post("http://localhost:1337/api/empleados", dataJson, config)
+      .post("http://localhost:1337/api/auth/local/register", dataJson)
       .then(() => {
         handleClose(false);
         update();
@@ -121,9 +106,8 @@ export default function Pruebas() {
         descripcion: descTexto,
       },
     };
-
     axios
-      .put(`http://localhost:1337/api/empleados/${rowText}`, dataJson, config)
+      .put(`http://localhost:1337/api/users/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();
@@ -156,30 +140,25 @@ export default function Pruebas() {
           <form onSubmit={handleSubmit(submit)}>
             <div>
               <TextField
-                id="nombreCompleto"
-                label="Nombre Completo"
+                id="username"
+                label="Usuario"
                 variant="outlined"
                 type="text"
-                {...register("identifierName")}
+                {...register("identifierUser")}
               />
-              <FormControl fullWidth>
-                <InputLabel id="estado">Age</InputLabel>
-                <Select
-                  labelId="estado"
-                  id="estado"
-                  value={estado}
-                  label="Estado"
-                  onChange={submit}
-                >
-                  <MenuItem value={"En Prueba"}>En Prueba</MenuItem>
-                  <MenuItem value={"En Planilla"}>En Planilla</MenuItem>
-                </Select>
-              </FormControl>
               <TextField
-                id="inicioLabores"
+                id="email"
+                label="Correo Electronico"
                 variant="outlined"
-                type="date"
-                {...register("identifierFecha")}
+                type="email"
+                {...register("identifierEmail")}
+              />
+              <TextField
+                id="password"
+                label="Contraseña"
+                variant="outlined"
+                type="password"
+                {...register("identifierPassword")}
               />
             </div>
             <Button variant="contained" type="submit">
@@ -201,8 +180,8 @@ export default function Pruebas() {
           <form onSubmit={handleSubmit(updRegistro)}>
             <div>
               <TextField
-                id="nombreCompleto"
-                label="Nombre Completo"
+                id="descripcion"
+                label="Descripción"
                 variant="outlined"
                 type="text"
                 {...register("identifier")}
@@ -215,7 +194,7 @@ export default function Pruebas() {
         </Box>
       </Modal>
       <DataGrid
-        rows={empleados}
+        rows={usuarios}
         columns={columns}
         initialState={{
           pagination: {
@@ -225,7 +204,7 @@ export default function Pruebas() {
           },
         }}
         pageSizeOptions={[5]}
-        loading={!empleados.length}
+        loading={!usuarios.length}
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         onRowSelectionModelChange={(data) => {
           setRowSelected(data);

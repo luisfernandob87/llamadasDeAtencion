@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, esES } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -58,6 +65,10 @@ export default function Empleados() {
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
 
+  const handleChange = (event) => {
+    setEstado(event.target.value);
+  };
+
   const [empleados, setEmpleados] = useState([]);
   const token = localStorage.getItem("token");
   const [rowSelected, setRowSelected] = useState([]);
@@ -112,11 +123,16 @@ export default function Empleados() {
   };
 
   const updRegistro = (data) => {
+    const nameTexto = data.identifier;
+    const estadoTexto = estado;
+    const fechaTexto = data.identifierFecha;
+
     const rowText = rowSelected.toString();
-    const descTexto = data.identifier;
     const dataJson = {
       data: {
-        descripcion: descTexto,
+        nombreCompleto: nameTexto,
+        estado: estadoTexto,
+        inicioLabores: fechaTexto,
       },
     };
 
@@ -160,14 +176,20 @@ export default function Empleados() {
                 type="text"
                 {...register("identifierName")}
               />
-              <select
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              >
-                <option value="">Estado del Empleado</option>
-                <option value="En Prueba">En Prueba</option>
-                <option value="En Planilla">En Planilla</option>
-              </select>
+
+              <FormControl fullWidth>
+                <InputLabel id="estado">Estado</InputLabel>
+                <Select
+                  value={estado}
+                  labelId="estado"
+                  id="estado"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="En Prueba">En Prueba</MenuItem>
+                  <MenuItem value="En Planilla">En Planilla</MenuItem>
+                </Select>
+              </FormControl>
+
               <TextField
                 id="inicioLabores"
                 variant="outlined"
@@ -199,6 +221,24 @@ export default function Empleados() {
                 variant="outlined"
                 type="text"
                 {...register("identifier")}
+              />
+              <FormControl fullWidth>
+                <InputLabel id="estado">Estado</InputLabel>
+                <Select
+                  value={estado}
+                  labelId="estado"
+                  id="estado"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="En Prueba">En Prueba</MenuItem>
+                  <MenuItem value="En Planilla">En Planilla</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                id="inicioLabores"
+                variant="outlined"
+                type="date"
+                {...register("identifierFecha")}
               />
             </div>
             <Button variant="contained" type="submit">

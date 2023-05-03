@@ -9,6 +9,8 @@ import Puestos from "./components/Puestos";
 import Usuarios from "./components/Usuarios";
 import Pruebas from "./components/Pruebas";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import CrearLlamada from "./components/CrearLlamada";
+import ConsultarLlamadas from "./components/ConsultarLlamadas";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/puestos" element={<Puestos />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/pruebas" element={<Pruebas />} />
+          <Route path="/crear" element={<CrearLlamada />} />
+          <Route path="/consultar" element={<ConsultarLlamadas />} />
         </Route>
       </Routes>
     </HashRouter>
