@@ -1,53 +1,17 @@
-import * as React from "react";
-import { Button, TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import { DataGrid, esES } from "@mui/x-data-grid";
-import { useState } from "react";
-import { useEffect } from "react";
+import { Input } from "@mui/material";
 import axios from "axios";
-import Modal from "@mui/material/Modal";
+import React, { useEffect, useRef, useState } from "react";
+import SignatureCanvas from "react-signature-canvas";
 import { useForm } from "react-hook-form";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "username",
-    headerName: "Usuario",
-    width: 200,
-  },
-  {
-    field: "email",
-    headerName: "Correo",
-    width: 300,
-  },
-];
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-export default function Usuarios() {
-  const { register, handleSubmit } = useForm();
-
-  //modal
-  const [open, setOpen] = React.useState(false);
-  const [open2, setOpen2] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleOpen2 = () => setOpen2(true);
-  const handleClose = () => setOpen(false);
-  const handleClose2 = () => setOpen2(false);
-
-  const [usuarios, setUsuarios] = useState([]);
+function Pruebas() {
   const token = localStorage.getItem("token");
-  const [rowSelected, setRowSelected] = useState([]);
+  const usuario = localStorage.getItem("usuario");
+  const [empleados, setEmpleados] = useState([]);
+  const [departamentos, setDepartamentos] = useState([]);
+  const [puestos, setPuestos] = useState([]);
+
+  const { register, handleSubmit, reset } = useForm();
 
   const config = {
     headers: {
@@ -55,161 +19,195 @@ export default function Usuarios() {
     },
   };
 
-  const update = () => {
-    axios
-      .get("http://localhost:1337/api/users", config)
-      .then((res) => setUsuarios(res.data.data));
-  };
-
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/users", config)
-      // .then((res) => console.log(res.data));
-      .then((res) => setUsuarios(res.data));
+      .get("http://localhost:1337/api/empleados", config)
+      .then((res) => setEmpleados(res.data.data));
+    axios
+      .get("http://localhost:1337/api/departamentos", config)
+      .then((res) => setDepartamentos(res.data.data));
+    axios
+      .get("http://localhost:1337/api/puestos", config)
+      .then((res) => setPuestos(res.data.data));
   }, []);
 
-  const borrar = () => {
-    const rowText = rowSelected.toString();
-    axios
-      .delete(`http://localhost:1337/api/users/${rowText}`, config)
-      .then(() => update());
-  };
+  const jefeInmediato = useRef({});
+  let dataJefeInmediato = "";
+
+  function borrarJefeInmediato(e) {
+    e.preventDefault();
+    jefeInmediato.current.clear();
+  }
+  function guardarJefeInmediato(e) {
+    e.preventDefault();
+    dataJefeInmediato = jefeInmediato.current.toDataURL();
+  }
+  //
+  const firmarrhh = useRef({});
+  let dataRrhh = "";
+
+  function borrarRrhh(e) {
+    e.preventDefault();
+    firmarrhh.current.clear();
+  }
+  function guardarRrhh(e) {
+    e.preventDefault();
+    dataRrhh = firmarrhh.current.toDataURL();
+  }
+  //
+  const firmaColaborador = useRef({});
+  let dataColaborador = "";
+
+  function borrarColaborador(e) {
+    e.preventDefault();
+    firmaColaborador.current.clear();
+  }
+  function guardarColaborador(e) {
+    e.preventDefault();
+    dataColaborador = firmaColaborador.current.toDataURL();
+  }
+  //
+  const firmaGerencia = useRef({});
+  let dataGerencia = "";
+
+  function borrarGerencia(e) {
+    e.preventDefault();
+    firmaGerencia.current.clear();
+  }
+  function guardarGerencia(e) {
+    e.preventDefault();
+    dataGerencia = firmaGerencia.current.toDataURL();
+  }
+  //
+
   const submit = (data) => {
-    const userTexto = data.identifierUser;
-    const emailTexto = data.identifierEmail;
-    const passTexto = data.identifierPassword;
-
-    const dataJson = {
-      username: userTexto,
-      email: emailTexto,
-      password: passTexto,
-    };
-
-    axios
-      .post("http://localhost:1337/api/auth/local/register", dataJson)
-      .then(() => {
-        handleClose(false);
-        update();
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          alert(error);
-        }
-      });
-  };
-
-  const updRegistro = (data) => {
-    const rowText = rowSelected.toString();
-    const descTexto = data.identifier;
     const dataJson = {
       data: {
-        descripcion: descTexto,
+        departamento: {
+          id: data.departamento,
+        },
+        empleado: {
+          id: data.empleado,
+        },
+        puesto: {
+          id: data.puesto,
+        },
+        grado: data.grado,
+        descripcion: data.descripcion,
+        accionCorrectiva: data.accionCorrectiva,
+        compromiso: data.compromiso,
+        creadoPor: usuario,
+        firmaJefeInmediato: dataJefeInmediato,
+        firmaRrhh: dataRrhh,
+        firmaColaborador: dataColaborador,
+        firmaGerencia: dataGerencia,
       },
     };
+    console.log(dataJson);
     axios
-      .put(`http://localhost:1337/api/users/${rowText}`, dataJson, config)
-      .then(() => {
-        handleClose2(false);
-        update();
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          alert(error);
-        }
-      });
+      .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
+      .then((res) => console.log(res));
+    reset();
+    firmarrhh.current.clear();
+    jefeInmediato.current.clear();
+    firmaColaborador.current.clear();
+    firmaGerencia.current.clear();
   };
-
   return (
-    <Box sx={{ height: 375, width: "100%" }}>
-      <Button variant="contained" onClick={handleOpen}>
-        Crear
-      </Button>
-      <Button variant="contained" onClick={handleOpen2}>
-        Actualizar
-      </Button>
-      <Button variant="contained" onClick={borrar}>
-        Borrar
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(submit)}>
-            <div>
-              <TextField
-                id="username"
-                label="Usuario"
-                variant="outlined"
-                type="text"
-                {...register("identifierUser")}
-              />
-              <TextField
-                id="email"
-                label="Correo Electronico"
-                variant="outlined"
-                type="email"
-                {...register("identifierEmail")}
-              />
-              <TextField
-                id="password"
-                label="Contraseña"
-                variant="outlined"
-                type="password"
-                {...register("identifierPassword")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Crear
-            </Button>
-            <Button variant="contained" type="reset">
-              Borrar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <Modal
-        open={open2}
-        onClose={handleClose2}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(updRegistro)}>
-            <div>
-              <TextField
-                id="descripcion"
-                label="Descripción"
-                variant="outlined"
-                type="text"
-                {...register("identifier")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Actualizar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <DataGrid
-        rows={usuarios}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        loading={!usuarios.length}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        onRowSelectionModelChange={(data) => {
-          setRowSelected(data);
-        }}
+    // <div>
+
+    // </div>
+    <form onSubmit={handleSubmit(submit)}>
+      <select {...register("empleado")}>
+        <option>Selecciona un Empleado</option>
+        {empleados.map((empleado) => (
+          <option key={empleado?.id} value={empleado.id}>
+            {empleado.attributes.nombreCompleto}
+          </option>
+        ))}
+      </select>
+      <select {...register("departamento")}>
+        <option>Selecciona un Departamento</option>
+        {departamentos.map((departamento) => (
+          <option key={departamento?.id} value={departamento.id}>
+            {departamento.attributes.descripcion}
+          </option>
+        ))}
+      </select>
+      <select {...register("puesto")}>
+        <option>Selecciona un Puesto</option>
+        {puestos.map((puesto) => (
+          <option key={puesto?.id} value={puesto.id}>
+            {puesto.attributes.descripcion}
+          </option>
+        ))}
+      </select>
+      <select {...register("grado")}>
+        <option>Selecciona un Grado</option>
+        <option value="Llamada de atención verbal">
+          Llamada de atención verbal
+        </option>
+        <option value="Llamada de atención Escrita">
+          Llamada de atención Escrita
+        </option>
+        <option value="Suspensión">Suspensión</option>
+      </select>
+      <input
+        {...register("descripcion")}
+        type="text"
+        placeholder="Descripción"
       />
-    </Box>
+      <label htmlFor="">Fecha de Implementación</label>
+      <input {...register("fechaImplementacion")} type="date" />
+      <input
+        {...register("accionCorrectiva")}
+        type="text"
+        placeholder="Acción Correctiva"
+      />
+      <input {...register("compromiso")} type="text" placeholder="Compromiso" />
+      <label htmlFor="">Fecha inicio de Compromiso</label>
+      <input {...register("fechaInicioCompromiso")} type="date" />
+      <label htmlFor="">Fecha final de Compromiso</label>
+      <input {...register("fechaFinalCompromiso")} type="date" />
+      <label htmlFor="">Firma Jefe Inmediato</label>
+      <SignatureCanvas
+        ref={jefeInmediato}
+        penColor="black"
+        backgroundColor="#f6f6f9"
+        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+      />
+      <button onClick={borrarJefeInmediato}>Borrar</button>
+      <button onClick={guardarJefeInmediato}>Guardar</button>
+      <label htmlFor="">Firma Recursos Humanos</label>
+      <SignatureCanvas
+        ref={firmarrhh}
+        penColor="black"
+        backgroundColor="#f6f6f9"
+        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+      />
+      <button onClick={borrarRrhh}>Borrar</button>
+      <button onClick={guardarRrhh}>Guardar</button>
+      <label htmlFor="">Firma Empleado</label>
+      <SignatureCanvas
+        ref={firmaColaborador}
+        penColor="black"
+        backgroundColor="#f6f6f9"
+        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+      />
+      <button onClick={borrarColaborador}>Borrar</button>
+      <button onClick={guardarColaborador}>Guardar</button>
+      <label htmlFor="">Firma Gerencia</label>
+      <SignatureCanvas
+        ref={firmaGerencia}
+        penColor="black"
+        backgroundColor="#f6f6f9"
+        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+      />
+      <button onClick={borrarGerencia}>Borrar</button>
+      <button onClick={guardarGerencia}>Guardar</button>
+      <Input type="submit" />
+    </form>
   );
 }
+
+export default Pruebas;

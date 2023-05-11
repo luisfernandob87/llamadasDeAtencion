@@ -15,6 +15,8 @@ import axios from "axios";
 import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 
 const columns = [
   { field: "id", headerName: "ID", width: 50 },
@@ -36,7 +38,7 @@ const columns = [
     headerName: "Inicio de Labores",
     width: 200,
     valueGetter: (inicioLabores) =>
-      moment(inicioLabores.row.attributes.inicioLabores).format("L"),
+      moment(inicioLabores.row.attributes.inicioLabores).format("DD/MM/YYYY"),
   },
 ];
 
