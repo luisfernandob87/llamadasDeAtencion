@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TextField, Button } from "@mui/material";
+import logoInicio from "../assets/Logotipo_Anvar_500.png";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
@@ -30,6 +31,7 @@ function Login() {
 
   return (
     <div>
+      <img src={logoInicio} alt="Logo Anvar" />
       <form onSubmit={handleSubmit(submit)}>
         <div>
           <TextField
@@ -50,7 +52,7 @@ function Login() {
           />
         </div>
         <Button variant="contained" type="submit">
-          Login
+          Acceder
         </Button>
         <Button variant="contained" type="reset">
           Borrar

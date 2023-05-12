@@ -1,4 +1,4 @@
-import { Input } from "@mui/material";
+import { Autocomplete, Input, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
@@ -117,9 +117,6 @@ function CrearLlamada() {
     firmaGerencia.current.clear();
   };
   return (
-    // <div>
-
-    // </div>
     <form onSubmit={handleSubmit(submit)}>
       <select {...register("empleado")}>
         <option>Selecciona un Empleado</option>
@@ -129,6 +126,23 @@ function CrearLlamada() {
           </option>
         ))}
       </select>
+      {/* <Autocomplete
+        freeSolo
+        disableClearable
+        options={empleados.map(
+          (empleado) => empleado.attributes.nombreCompleto
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Selecciona un Empleado"
+            InputProps={{
+              ...params.InputProps,
+              type: "search",
+            }}
+          />
+        )}
+      /> */}
       <select {...register("departamento")}>
         <option>Selecciona un Departamento</option>
         {departamentos.map((departamento) => (
@@ -177,7 +191,7 @@ function CrearLlamada() {
         ref={jefeInmediato}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarJefeInmediato}>Borrar</button>
       <button onClick={guardarJefeInmediato}>Guardar</button>
@@ -186,7 +200,7 @@ function CrearLlamada() {
         ref={firmarrhh}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarRrhh}>Borrar</button>
       <button onClick={guardarRrhh}>Guardar</button>
@@ -195,7 +209,7 @@ function CrearLlamada() {
         ref={firmaColaborador}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarColaborador}>Borrar</button>
       <button onClick={guardarColaborador}>Guardar</button>
@@ -204,7 +218,7 @@ function CrearLlamada() {
         ref={firmaGerencia}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarGerencia}>Borrar</button>
       <button onClick={guardarGerencia}>Guardar</button>
