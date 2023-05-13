@@ -1,4 +1,4 @@
-import { Autocomplete, Input, TextField } from "@mui/material";
+import { Input, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
@@ -126,23 +126,6 @@ function CrearLlamada() {
           </option>
         ))}
       </select>
-      {/* <Autocomplete
-        freeSolo
-        disableClearable
-        options={empleados.map(
-          (empleado) => empleado.attributes.nombreCompleto
-        )}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Selecciona un Empleado"
-            InputProps={{
-              ...params.InputProps,
-              type: "search",
-            }}
-          />
-        )}
-      /> */}
       <select {...register("departamento")}>
         <option>Selecciona un Departamento</option>
         {departamentos.map((departamento) => (

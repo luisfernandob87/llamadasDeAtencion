@@ -1,8 +1,8 @@
-import { Input } from "@mui/material";
+import { Input, Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 function Pruebas() {
   const token = localStorage.getItem("token");
@@ -11,7 +11,7 @@ function Pruebas() {
   const [departamentos, setDepartamentos] = useState([]);
   const [puestos, setPuestos] = useState([]);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const config = {
     headers: {
@@ -101,31 +101,37 @@ function Pruebas() {
         firmaRrhh: dataRrhh,
         firmaColaborador: dataColaborador,
         firmaGerencia: dataGerencia,
+        fechaImplementacion: data.fechaImplementacion,
+        inicioCompromiso: data.fechaInicioCompromiso,
+        finalCompromiso: data.fechaFinalCompromiso,
       },
     };
     console.log(dataJson);
-    axios
-      .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
-      .then((res) => console.log(res));
-    reset();
-    firmarrhh.current.clear();
-    jefeInmediato.current.clear();
-    firmaColaborador.current.clear();
-    firmaGerencia.current.clear();
+    // axios
+    //   .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
+    //   .then((res) => console.log(res));
+    // reset();
+    // firmarrhh.current.clear();
+    // jefeInmediato.current.clear();
+    // firmaColaborador.current.clear();
+    // firmaGerencia.current.clear();
   };
-  return (
-    // <div>
 
-    // </div>
+  return (
     <form onSubmit={handleSubmit(submit)}>
-      <select {...register("empleado")}>
-        <option>Selecciona un Empleado</option>
+      <label htmlFor="selectEmpleado">Selecciona un Empleado</label>
+      <input id="selectEmpleado" {...register("empleado")} list="empleados" />
+      <datalist id="empleados">
         {empleados.map((empleado) => (
-          <option key={empleado?.id} value={empleado.id}>
+          <option
+            key={empleado?.id}
+            value={empleado.id}
+            // label={empleado.attributes.nombreCompleto}
+          >
             {empleado.attributes.nombreCompleto}
           </option>
         ))}
-      </select>
+      </datalist>
       <select {...register("departamento")}>
         <option>Selecciona un Departamento</option>
         {departamentos.map((departamento) => (
@@ -134,6 +140,7 @@ function Pruebas() {
           </option>
         ))}
       </select>
+
       <select {...register("puesto")}>
         <option>Selecciona un Puesto</option>
         {puestos.map((puesto) => (
@@ -174,7 +181,7 @@ function Pruebas() {
         ref={jefeInmediato}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarJefeInmediato}>Borrar</button>
       <button onClick={guardarJefeInmediato}>Guardar</button>
@@ -183,7 +190,7 @@ function Pruebas() {
         ref={firmarrhh}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarRrhh}>Borrar</button>
       <button onClick={guardarRrhh}>Guardar</button>
@@ -192,7 +199,7 @@ function Pruebas() {
         ref={firmaColaborador}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarColaborador}>Borrar</button>
       <button onClick={guardarColaborador}>Guardar</button>
@@ -201,7 +208,7 @@ function Pruebas() {
         ref={firmaGerencia}
         penColor="black"
         backgroundColor="#f6f6f9"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+        canvasProps={{ width: 350, height: 200, className: "sigCanvas" }}
       />
       <button onClick={borrarGerencia}>Borrar</button>
       <button onClick={guardarGerencia}>Guardar</button>
