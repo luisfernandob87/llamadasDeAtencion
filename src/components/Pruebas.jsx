@@ -1,8 +1,8 @@
-import { Input, Autocomplete, TextField } from "@mui/material";
+import { Input } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 function Pruebas() {
   const token = localStorage.getItem("token");
@@ -11,7 +11,7 @@ function Pruebas() {
   const [departamentos, setDepartamentos] = useState([]);
   const [puestos, setPuestos] = useState([]);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const config = {
     headers: {
@@ -79,7 +79,18 @@ function Pruebas() {
     dataGerencia = firmaGerencia.current.toDataURL();
   }
   //
+  const [selectedEmployee, setSelectedEmployee] = useState("");
 
+  const handleChange = (event) => {
+    setSelectedEmployee(event.target.value);
+  };
+
+  const selectedEmployeeId =
+    selectedEmployee.trim().length > 0
+      ? empleados.find(
+          (empleado) => empleado.attributes.nombreCompleto === selectedEmployee
+        )?.id || ""
+      : "";
   const submit = (data) => {
     const dataJson = {
       data: {
@@ -87,7 +98,7 @@ function Pruebas() {
           id: data.departamento,
         },
         empleado: {
-          id: data.empleado,
+          id: selectedEmployeeId,
         },
         puesto: {
           id: data.puesto,
@@ -106,30 +117,32 @@ function Pruebas() {
         finalCompromiso: data.fechaFinalCompromiso,
       },
     };
-    console.log(dataJson);
-    // axios
-    //   .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
-    //   .then((res) => console.log(res));
-    // reset();
-    // firmarrhh.current.clear();
-    // jefeInmediato.current.clear();
-    // firmaColaborador.current.clear();
-    // firmaGerencia.current.clear();
+    axios
+      .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
+      .then((res) => console.log(res));
+    reset();
+    firmarrhh.current.clear();
+    jefeInmediato.current.clear();
+    firmaColaborador.current.clear();
+    firmaGerencia.current.clear();
   };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
       <label htmlFor="selectEmpleado">Selecciona un Empleado</label>
-      <input id="selectEmpleado" {...register("empleado")} list="empleados" />
+      <input
+        id="selectEmpleado"
+        {...register("empleado")}
+        list="empleados"
+        onChange={handleChange}
+        value={selectedEmployee}
+      />
       <datalist id="empleados">
         {empleados.map((empleado) => (
           <option
             key={empleado?.id}
-            value={empleado.id}
-            // label={empleado.attributes.nombreCompleto}
-          >
-            {empleado.attributes.nombreCompleto}
-          </option>
+            value={empleado.attributes.nombreCompleto}
+          ></option>
         ))}
       </datalist>
       <select {...register("departamento")}>
