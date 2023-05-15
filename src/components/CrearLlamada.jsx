@@ -1,4 +1,3 @@
-import { Input } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
@@ -70,18 +69,6 @@ function CrearLlamada() {
     dataColaborador = firmaColaborador.current.toDataURL();
   }
   //
-  const firmaGerencia = useRef({});
-  let dataGerencia = "";
-
-  function borrarGerencia(e) {
-    e.preventDefault();
-    firmaGerencia.current.clear();
-  }
-  function guardarGerencia(e) {
-    e.preventDefault();
-    dataGerencia = firmaGerencia.current.toDataURL();
-  }
-  //
   const [selectedEmployee, setSelectedEmployee] = useState("");
 
   const handleChange = (event) => {
@@ -114,7 +101,6 @@ function CrearLlamada() {
         firmaJefeInmediato: dataJefeInmediato,
         firmaRrhh: dataRrhh,
         firmaColaborador: dataColaborador,
-        firmaGerencia: dataGerencia,
         fechaImplementacion: data.fechaImplementacion,
         inicioCompromiso: data.fechaInicioCompromiso,
         finalCompromiso: data.fechaFinalCompromiso,
@@ -128,15 +114,15 @@ function CrearLlamada() {
     firmarrhh.current.clear();
     jefeInmediato.current.clear();
     firmaColaborador.current.clear();
-    firmaGerencia.current.clear();
+    setSelectedEmployee("");
   };
   const fecha = moment(new Date()).format("DD/MM/YYYY");
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form style={{ maxWidth: 800 }} onSubmit={handleSubmit(submit)}>
       <h2>FORMATO DE ASESORÍA PARA MEJORAR</h2>
       <p>Fecha: {fecha}</p>
-      <div>
+      <div className="container">
         <label htmlFor="selectEmpleado">Nombre colaborador (a): </label>
         <input
           id="selectEmpleado"
@@ -154,7 +140,7 @@ function CrearLlamada() {
           ))}
         </datalist>
       </div>
-      <div>
+      <div className="container">
         <label htmlFor="departamento">Departamento: </label>
         <select id="departamento" {...register("departamento")}>
           <option></option>
@@ -165,7 +151,7 @@ function CrearLlamada() {
           ))}
         </select>
       </div>
-      <div>
+      <div className="container">
         <label htmlFor="puesto">Puesto: </label>
         <select id="puesto" {...register("puesto")}>
           <option></option>
@@ -176,20 +162,20 @@ function CrearLlamada() {
           ))}
         </select>
       </div>
-      <div>
+      <div className="container">
         <label htmlFor="grado">Tipo de Llamada de Atención: </label>
         <select id="grado" {...register("grado")}>
           <option></option>
           <option value="Llamada de atención verbal">
             Llamada de atención verbal
           </option>
-          <option value="Llamada de atención Escrita">
-            Llamada de atención Escrita
+          <option value="Llamada de atención escrita">
+            Llamada de atención escrita
           </option>
           <option value="Suspensión">Suspensión</option>
         </select>
       </div>
-      <div>
+      <div className="container">
         <p htmlFor="descripcion">
           De acuerdo a las obligaciones de su puesto hacemos la presenta llamada
           de atención por el motivo siguiente:
@@ -250,59 +236,129 @@ function CrearLlamada() {
           />
         </div>
       </div>
-      <div>
+      <div className="container">
         <p>
           En caso de no mejorar este comportamiento o desempeño, el siguiente
           nivel de llamada de atención será:{" "}
         </p>
         <input
-          style={{ width: 200 }}
+          style={{ width: 200, marginBottom: 20 }}
           placeholder="Próximo llamado de atención"
           {...register("proximoGrado")}
           type="text"
         ></input>
       </div>
-      <label htmlFor="">Fecha inicio de Compromiso</label>
-      <input {...register("fechaInicioCompromiso")} type="date" />
-      <label htmlFor="">Fecha final de Compromiso</label>
-      <input {...register("fechaFinalCompromiso")} type="date" />
-      <label htmlFor="">Firma Jefe Inmediato</label>
-      <SignatureCanvas
-        ref={jefeInmediato}
-        penColor="black"
-        backgroundColor="#f6f6f9"
-        canvasProps={{ width: 350, height: 100, className: "sigCanvas" }}
+      <div style={{ display: "flex", gap: 10 }}>
+        <div
+          style={{
+            display: "grid",
+            width: "20%",
+          }}
+        >
+          <p style={{ textAlign: "center" }}>
+            Duración del compromiso de llamada de atención
+          </p>
+          <label htmlFor="inicio">Inicio</label>
+          <input
+            id="inicio"
+            {...register("fechaInicioCompromiso")}
+            type="date"
+          />
+
+          <label htmlFor="final">Final</label>
+          <input id="final" {...register("fechaFinalCompromiso")} type="date" />
+        </div>
+        <div
+          style={{
+            width: "25%",
+            borderWidth: 1,
+            borderStyle: "solid",
+            borderRadius: 10,
+            alignSelf: "center",
+          }}
+        >
+          <label htmlFor="">Firma Colaborador(a)</label>
+          <SignatureCanvas
+            ref={firmaColaborador}
+            penColor="black"
+            backgroundColor="#f6f6f9"
+            canvasProps={{
+              height: 100,
+              className: "sigCanvas",
+              width: "200%",
+            }}
+          />
+          <button className="btn" onClick={borrarColaborador}>
+            Borrar
+          </button>
+          <button className="btn" onClick={guardarColaborador}>
+            Guardar
+          </button>
+        </div>
+        <div
+          style={{
+            width: "25%",
+            borderStyle: "solid",
+            borderRadius: 10,
+            borderWidth: 1,
+          }}
+        >
+          <label htmlFor="">Firma Jefe Inmediato</label>
+          <SignatureCanvas
+            ref={jefeInmediato}
+            penColor="black"
+            backgroundColor="#f6f6f9"
+            canvasProps={{
+              height: 100,
+              className: "sigCanvas",
+              width: "200%",
+            }}
+          />
+          <button className="btn" onClick={borrarJefeInmediato}>
+            Borrar
+          </button>
+          <button className="btn" onClick={guardarJefeInmediato}>
+            Guardar
+          </button>
+        </div>
+        <div
+          style={{
+            width: "25%",
+            borderStyle: "solid",
+            borderRadius: 10,
+            borderWidth: 1,
+          }}
+        >
+          <label htmlFor="">Firma Recursos Humanos</label>
+          <SignatureCanvas
+            ref={firmarrhh}
+            penColor="black"
+            backgroundColor="#f6f6f9"
+            canvasProps={{ height: 100, className: "sigCanvas", width: "200%" }}
+          />
+          <button className="btn" onClick={borrarRrhh}>
+            Borrar
+          </button>
+          <button className="btn" onClick={guardarRrhh}>
+            Guardar
+          </button>
+        </div>
+      </div>
+      <input
+        className="botones"
+        value={"ENVIAR"}
+        style={{
+          marginTop: 20,
+          backgroundColor: "#1976d2",
+          padding: 10,
+          borderRadius: 5,
+          borderWidth: 1,
+          cursor: "pointer",
+          color: "white",
+          fontWeight: "bold",
+        }}
+        type="submit"
       />
-      <button onClick={borrarJefeInmediato}>Borrar</button>
-      <button onClick={guardarJefeInmediato}>Guardar</button>
-      <label htmlFor="">Firma Recursos Humanos</label>
-      <SignatureCanvas
-        ref={firmarrhh}
-        penColor="black"
-        backgroundColor="#f6f6f9"
-        canvasProps={{ width: 350, height: 100, className: "sigCanvas" }}
-      />
-      <button onClick={borrarRrhh}>Borrar</button>
-      <button onClick={guardarRrhh}>Guardar</button>
-      <label htmlFor="">Firma Empleado</label>
-      <SignatureCanvas
-        ref={firmaColaborador}
-        penColor="black"
-        backgroundColor="#f6f6f9"
-        canvasProps={{ width: 350, height: 100, className: "sigCanvas" }}
-      />
-      <button onClick={borrarColaborador}>Borrar</button>
-      <button onClick={guardarColaborador}>Guardar</button>
-      <label htmlFor="">Firma Gerencia</label>
-      <SignatureCanvas
-        ref={firmaGerencia}
-        penColor="black"
-        backgroundColor="#f6f6f9"
-        canvasProps={{ width: 350, height: 100, className: "sigCanvas" }}
-      />
-      <button onClick={borrarGerencia}>Borrar</button>
-      <button onClick={guardarGerencia}>Guardar</button>
-      <Input type="submit" />
     </form>
   );
 }

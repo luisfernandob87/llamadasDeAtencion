@@ -42,6 +42,7 @@ function Login() {
             {...register("identifier")}
           />
         </div>
+        <br />
         <div>
           <TextField
             id="password"
@@ -51,10 +52,11 @@ function Login() {
             {...register("password")}
           />
         </div>
-        <Button variant="contained" type="submit">
+        <br />
+        <Button variant="contained" type="submit" style={{ marginRight: 5 }}>
           Acceder
         </Button>
-        <Button variant="contained" type="reset">
+        <Button variant="contained" type="reset" style={{ marginLeft: 5 }}>
           Borrar
         </Button>
       </form>
