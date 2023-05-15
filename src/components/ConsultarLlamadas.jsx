@@ -7,6 +7,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import moment from "moment";
 import "moment/locale/es";
+import MenuTop from "./MenuTop";
 moment.locale("es");
 
 const columns = [
@@ -128,7 +129,6 @@ export default function ConsultarLlamadas() {
     axios
       .get("http://localhost:1337/api/llamadade-atencions?populate=*", config)
       .then((res) => setLlamadas(res.data.data));
-    console.log(llamadas);
   }, []);
 
   const detalle = () => {
@@ -137,28 +137,32 @@ export default function ConsultarLlamadas() {
   };
 
   return (
-    <Box sx={{ height: 550, width: "100%" }}>
-      <Button variant="contained" onClick={detalle}>
-        Ver Detalle
-      </Button>
-      <DataGrid
-        rows={llamadas}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
+    <>
+      <MenuTop />
+      <Box sx={{ height: 450, width: "100%" }}>
+        <Button variant="contained" onClick={detalle}>
+          Ver Detalle
+        </Button>
+        <DataGrid
+          style={{ marginTop: 10 }}
+          rows={llamadas}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[10]}
-        loading={!llamadas.length}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        onRowSelectionModelChange={(data) => {
-          setRowSelected(data);
-        }}
-        slots={{ toolbar: GridToolbar }}
-      />
-    </Box>
+          }}
+          pageSizeOptions={[5]}
+          loading={!llamadas.length}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          onRowSelectionModelChange={(data) => {
+            setRowSelected(data);
+          }}
+          slots={{ toolbar: GridToolbar }}
+        />
+      </Box>
+    </>
   );
 }

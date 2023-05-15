@@ -16,6 +16,7 @@ import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import "moment/locale/es";
+import MenuTop from "./MenuTop";
 moment.locale("es");
 
 const columns = [
@@ -152,120 +153,126 @@ export default function Empleados() {
   };
 
   return (
-    <Box sx={{ height: 375, width: "100%" }}>
-      <Button variant="contained" onClick={handleOpen}>
-        Crear
-      </Button>
-      <Button variant="contained" onClick={handleOpen2}>
-        Actualizar
-      </Button>
-      <Button variant="contained" onClick={borrar}>
-        Borrar
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(submit)}>
-            <div>
-              <TextField
-                id="nombreCompleto"
-                label="Nombre Completo"
-                variant="outlined"
-                type="text"
-                {...register("identifierName")}
-              />
+    <>
+      <MenuTop />
+      <Box sx={{ height: 375, width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <Button variant="contained" onClick={handleOpen}>
+            Crear
+          </Button>
+          <Button variant="contained" onClick={handleOpen2}>
+            Actualizar
+          </Button>
+          <Button variant="contained" onClick={borrar}>
+            Borrar
+          </Button>
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <form onSubmit={handleSubmit(submit)}>
+              <div>
+                <TextField
+                  id="nombreCompleto"
+                  label="Nombre Completo"
+                  variant="outlined"
+                  type="text"
+                  {...register("identifierName")}
+                />
 
-              <FormControl fullWidth>
-                <InputLabel id="estado">Estado</InputLabel>
-                <Select
-                  value={estado}
-                  labelId="estado"
-                  id="estado"
-                  onChange={handleChange}
-                >
-                  <MenuItem value="En Prueba">En Prueba</MenuItem>
-                  <MenuItem value="En Planilla">En Planilla</MenuItem>
-                </Select>
-              </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="estado">Estado</InputLabel>
+                  <Select
+                    value={estado}
+                    labelId="estado"
+                    id="estado"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="En Prueba">En Prueba</MenuItem>
+                    <MenuItem value="En Planilla">En Planilla</MenuItem>
+                  </Select>
+                </FormControl>
 
-              <TextField
-                id="inicioLabores"
-                variant="outlined"
-                type="date"
-                {...register("identifierFecha")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Crear
-            </Button>
-            <Button variant="contained" type="reset">
-              Borrar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <Modal
-        open={open2}
-        onClose={handleClose2}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(updRegistro)}>
-            <div>
-              <TextField
-                id="nombreCompleto"
-                label="Nombre Completo"
-                variant="outlined"
-                type="text"
-                {...register("identifier")}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="estado">Estado</InputLabel>
-                <Select
-                  value={estado}
-                  labelId="estado"
-                  id="estado"
-                  onChange={handleChange}
-                >
-                  <MenuItem value="En Prueba">En Prueba</MenuItem>
-                  <MenuItem value="En Planilla">En Planilla</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                id="inicioLabores"
-                variant="outlined"
-                type="date"
-                {...register("identifierFecha")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Actualizar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <DataGrid
-        rows={empleados}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+                <TextField
+                  id="inicioLabores"
+                  variant="outlined"
+                  type="date"
+                  {...register("identifierFecha")}
+                />
+              </div>
+              <Button variant="contained" type="submit">
+                Crear
+              </Button>
+              <Button variant="contained" type="reset">
+                Borrar
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+        <Modal
+          open={open2}
+          onClose={handleClose2}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <form onSubmit={handleSubmit(updRegistro)}>
+              <div>
+                <TextField
+                  id="nombreCompleto"
+                  label="Nombre Completo"
+                  variant="outlined"
+                  type="text"
+                  {...register("identifier")}
+                />
+                <FormControl fullWidth>
+                  <InputLabel id="estado">Estado</InputLabel>
+                  <Select
+                    value={estado}
+                    labelId="estado"
+                    id="estado"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="En Prueba">En Prueba</MenuItem>
+                    <MenuItem value="En Planilla">En Planilla</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  id="inicioLabores"
+                  variant="outlined"
+                  type="date"
+                  {...register("identifierFecha")}
+                />
+              </div>
+              <Button variant="contained" type="submit">
+                Actualizar
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+        <DataGrid
+          style={{ marginTop: 10 }}
+          rows={empleados}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[5]}
-        loading={!empleados.length}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        onRowSelectionModelChange={(data) => {
-          setRowSelected(data);
-        }}
-      />
-    </Box>
+          }}
+          pageSizeOptions={[5]}
+          loading={!empleados.length}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          onRowSelectionModelChange={(data) => {
+            setRowSelected(data);
+          }}
+        />
+      </Box>
+    </>
   );
 }

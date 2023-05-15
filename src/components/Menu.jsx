@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -47,7 +46,7 @@ function Menu() {
             navigate("/llamadas");
           }}
         >
-          <h4>Llamadas de Atencion</h4>
+          <h4>Llamadas de Atención</h4>
           <img src={llamada} alt="Llamada de atención" />
         </div>
         <div
@@ -69,7 +68,7 @@ function Menu() {
           <img src={usuarioImg} alt="Usuario" />
         </div>
       </div>
-      <img style={{ marginTop: 50 }} src={logo} alt="Logo" />
+      <img style={{ marginTop: 50, width: "10%" }} src={logo} alt="Logo" />
     </div>
   );
 }

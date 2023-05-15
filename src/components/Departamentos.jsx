@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
+import MenuTop from "./MenuTop";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -115,82 +116,88 @@ export default function Departamentos() {
   };
 
   return (
-    <Box sx={{ height: 375, width: "100%" }}>
-      <Button variant="contained" onClick={handleOpen}>
-        Crear
-      </Button>
-      <Button variant="contained" onClick={handleOpen2}>
-        Actualizar
-      </Button>
-      <Button variant="contained" onClick={borrar}>
-        Borrar
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(submit)}>
-            <div>
-              <TextField
-                id="descripcion"
-                label="Descripción"
-                variant="outlined"
-                type="text"
-                {...register("identifier")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Crear
-            </Button>
-            <Button variant="contained" type="reset">
-              Borrar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <Modal
-        open={open2}
-        onClose={handleClose2}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(updRegistro)}>
-            <div>
-              <TextField
-                id="descripcion"
-                label="Descripción"
-                variant="outlined"
-                type="text"
-                {...register("identifier")}
-              />
-            </div>
-            <Button variant="contained" type="submit">
-              Actualizar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-      <DataGrid
-        rows={departamentos}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+    <>
+      <MenuTop />
+      <Box sx={{ height: 375, width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <Button variant="contained" onClick={handleOpen}>
+            Crear
+          </Button>
+          <Button variant="contained" onClick={handleOpen2}>
+            Actualizar
+          </Button>
+          <Button variant="contained" onClick={borrar}>
+            Borrar
+          </Button>
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <form onSubmit={handleSubmit(submit)}>
+              <div>
+                <TextField
+                  id="descripcion"
+                  label="Descripción"
+                  variant="outlined"
+                  type="text"
+                  {...register("identifier")}
+                />
+              </div>
+              <Button variant="contained" type="submit">
+                Crear
+              </Button>
+              <Button variant="contained" type="reset">
+                Borrar
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+        <Modal
+          open={open2}
+          onClose={handleClose2}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <form onSubmit={handleSubmit(updRegistro)}>
+              <div>
+                <TextField
+                  id="descripcion"
+                  label="Descripción"
+                  variant="outlined"
+                  type="text"
+                  {...register("identifier")}
+                />
+              </div>
+              <Button variant="contained" type="submit">
+                Actualizar
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+        <DataGrid
+          style={{ marginTop: 10 }}
+          rows={departamentos}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[5]}
-        loading={!departamentos.length}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        onRowSelectionModelChange={(data) => {
-          setRowSelected(data);
-        }}
-      />
-    </Box>
+          }}
+          pageSizeOptions={[5]}
+          loading={!departamentos.length}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          onRowSelectionModelChange={(data) => {
+            setRowSelected(data);
+          }}
+        />
+      </Box>
+    </>
   );
 }
