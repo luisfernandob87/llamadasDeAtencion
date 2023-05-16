@@ -7,14 +7,11 @@ import moment from "moment";
 import MenuTop from "./MenuTop";
 moment.locale("es");
 
-function CrearLlamada() {
+function DetalleLlamada() {
   const token = localStorage.getItem("token");
-  const usuario = localStorage.getItem("usuario");
-  const [empleados, setEmpleados] = useState([]);
-  const [departamentos, setDepartamentos] = useState([]);
-  const [puestos, setPuestos] = useState([]);
+  const idDetalle = localStorage.getItem("idDetalle");
 
-  const { register, handleSubmit, reset } = useForm();
+  const [info, setInfo] = useState([]);
 
   const config = {
     headers: {
@@ -24,151 +21,36 @@ function CrearLlamada() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
-      .then((res) => setEmpleados(res.data.data));
-    axios
-      .get("http://localhost:1337/api/departamentos", config)
-      .then((res) => setDepartamentos(res.data.data));
-    axios
-      .get("http://localhost:1337/api/puestos", config)
-      .then((res) => setPuestos(res.data.data));
+      .get(
+        `http://localhost:1337/api/llamadade-atencions/${idDetalle}?populate=*`,
+        config
+      )
+      .then((res) => setInfo(res.data.data.attributes));
   }, []);
 
-  const jefeInmediato = useRef({});
-  let dataJefeInmediato = "";
-
-  function borrarJefeInmediato(e) {
-    e.preventDefault();
-    jefeInmediato.current.clear();
-  }
-  function guardarJefeInmediato(e) {
-    e.preventDefault();
-    dataJefeInmediato = jefeInmediato.current.toDataURL();
-  }
-  //
-  const firmarrhh = useRef({});
-  let dataRrhh = "";
-
-  function borrarRrhh(e) {
-    e.preventDefault();
-    firmarrhh.current.clear();
-  }
-  function guardarRrhh(e) {
-    e.preventDefault();
-    dataRrhh = firmarrhh.current.toDataURL();
-  }
-  //
-  const firmaColaborador = useRef({});
-  let dataColaborador = "";
-
-  function borrarColaborador(e) {
-    e.preventDefault();
-    firmaColaborador.current.clear();
-  }
-  function guardarColaborador(e) {
-    e.preventDefault();
-    dataColaborador = firmaColaborador.current.toDataURL();
-  }
-  //
-  const [selectedEmployee, setSelectedEmployee] = useState("");
-
-  const handleChange = (event) => {
-    setSelectedEmployee(event.target.value);
-  };
-
-  const selectedEmployeeId =
-    selectedEmployee.trim().length > 0
-      ? empleados.find(
-          (empleado) => empleado.attributes.nombreCompleto === selectedEmployee
-        )?.id || ""
-      : "";
-  const submit = (data) => {
-    const dataJson = {
-      data: {
-        departamento: {
-          id: data.departamento,
-        },
-        empleado: {
-          id: selectedEmployeeId,
-        },
-        puesto: {
-          id: data.puesto,
-        },
-        grado: data.grado,
-        descripcion: data.descripcion,
-        accionCorrectiva: data.accionCorrectiva,
-        compromiso: data.compromiso,
-        creadoPor: usuario,
-        firmaJefeInmediato: dataJefeInmediato,
-        firmaRrhh: dataRrhh,
-        firmaColaborador: dataColaborador,
-        fechaImplementacion: data.fechaImplementacion,
-        inicioCompromiso: data.fechaInicioCompromiso,
-        finalCompromiso: data.fechaFinalCompromiso,
-        proximoGrado: data.proximoGrado,
-      },
-    };
-    axios
-      .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
-      .then((res) => console.log(res));
-    reset();
-    firmarrhh.current.clear();
-    jefeInmediato.current.clear();
-    firmaColaborador.current.clear();
-    setSelectedEmployee("");
-  };
-  const fecha = moment(new Date()).format("DD/MM/YYYY");
-
+  console.log(info);
   return (
     <>
       <MenuTop />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <form style={{ maxWidth: 800 }} onSubmit={handleSubmit(submit)}>
+        <form style={{ maxWidth: 800 }}>
           <h2>FORMATO DE ASESORÍA PARA MEJORAR</h2>
-          <p>Fecha: {fecha}</p>
+          {/* <p>Fecha: {info.attributes.createdAt}</p> */}
           <div className="container">
-            <label htmlFor="selectEmpleado">Nombre colaborador (a): </label>
-            <input
-              id="selectEmpleado"
-              {...register("empleado")}
-              list="empleados"
-              onChange={handleChange}
-              value={selectedEmployee}
-            />
-            <datalist id="empleados">
-              {empleados.map((empleado) => (
-                <option
-                  key={empleado?.id}
-                  value={empleado.attributes.nombreCompleto}
-                ></option>
-              ))}
-            </datalist>
+            <p htmlFor="selectEmpleado">Nombre colaborador (a): </p>
+            {/* <p>{info.empleado.data.attributes.nombreCompleto}</p> */}
           </div>
           <div className="container">
             <label htmlFor="departamento">Departamento: </label>
-            <select id="departamento" {...register("departamento")}>
-              <option></option>
-              {departamentos.map((departamento) => (
-                <option key={departamento?.id} value={departamento.id}>
-                  {departamento.attributes.descripcion}
-                </option>
-              ))}
-            </select>
+            <select id="departamento"></select>
           </div>
           <div className="container">
             <label htmlFor="puesto">Puesto: </label>
-            <select id="puesto" {...register("puesto")}>
-              <option></option>
-              {puestos.map((puesto) => (
-                <option key={puesto?.id} value={puesto.id}>
-                  {puesto.attributes.descripcion}
-                </option>
-              ))}
-            </select>
+            <select id="puesto"></select>
           </div>
           <div className="container">
             <label htmlFor="grado">Tipo de Llamada de Atención: </label>
-            <select id="grado" {...register("grado")}>
+            <select id="grado">
               <option></option>
               <option value="Llamada de atención verbal">
                 Llamada de atención verbal
@@ -190,7 +72,6 @@ function CrearLlamada() {
                 height: 50,
               }}
               id="descripcion"
-              {...register("descripcion")}
               type="text"
               placeholder="Descripción"
             />
@@ -218,7 +99,6 @@ function CrearLlamada() {
               <input
                 style={{ height: 50 }}
                 id="fechaImplementacion"
-                {...register("fechaImplementacion")}
                 type="date"
               />
             </div>
@@ -227,7 +107,6 @@ function CrearLlamada() {
               <textarea
                 id="accionCorrectiva"
                 style={{ height: 50 }}
-                {...register("accionCorrectiva")}
                 type="text"
                 placeholder="Acción Correctiva"
               />
@@ -237,7 +116,6 @@ function CrearLlamada() {
               <textarea
                 style={{ height: 50 }}
                 id="compromiso"
-                {...register("compromiso")}
                 type="text"
                 placeholder="Compromiso"
               />
@@ -251,7 +129,6 @@ function CrearLlamada() {
             <input
               style={{ width: 200, marginBottom: 20 }}
               placeholder="Próximo llamado de atención"
-              {...register("proximoGrado")}
               type="text"
             ></input>
           </div>
@@ -266,18 +143,10 @@ function CrearLlamada() {
                 Duración del compromiso de llamada de atención
               </p>
               <label htmlFor="inicio">Inicio</label>
-              <input
-                id="inicio"
-                {...register("fechaInicioCompromiso")}
-                type="date"
-              />
+              <input id="inicio" type="date" />
 
               <label htmlFor="final">Final</label>
-              <input
-                id="final"
-                {...register("fechaFinalCompromiso")}
-                type="date"
-              />
+              <input id="final" type="date" />
             </div>
             <div
               style={{
@@ -290,7 +159,6 @@ function CrearLlamada() {
             >
               <label htmlFor="">Firma Colaborador(a)</label>
               <SignatureCanvas
-                ref={firmaColaborador}
                 penColor="black"
                 backgroundColor="#f6f6f9"
                 canvasProps={{
@@ -299,12 +167,6 @@ function CrearLlamada() {
                   width: "200%",
                 }}
               />
-              <button className="btn" onClick={borrarColaborador}>
-                Borrar
-              </button>
-              <button className="btn" onClick={guardarColaborador}>
-                Guardar
-              </button>
             </div>
             <div
               style={{
@@ -316,7 +178,6 @@ function CrearLlamada() {
             >
               <label htmlFor="">Firma Jefe Inmediato</label>
               <SignatureCanvas
-                ref={jefeInmediato}
                 penColor="black"
                 backgroundColor="#f6f6f9"
                 canvasProps={{
@@ -325,12 +186,6 @@ function CrearLlamada() {
                   width: "200%",
                 }}
               />
-              <button className="btn" onClick={borrarJefeInmediato}>
-                Borrar
-              </button>
-              <button className="btn" onClick={guardarJefeInmediato}>
-                Guardar
-              </button>
             </div>
             <div
               style={{
@@ -342,7 +197,6 @@ function CrearLlamada() {
             >
               <label htmlFor="">Firma Recursos Humanos</label>
               <SignatureCanvas
-                ref={firmarrhh}
                 penColor="black"
                 backgroundColor="#f6f6f9"
                 canvasProps={{
@@ -351,33 +205,12 @@ function CrearLlamada() {
                   width: "200%",
                 }}
               />
-              <button className="btn" onClick={borrarRrhh}>
-                Borrar
-              </button>
-              <button className="btn" onClick={guardarRrhh}>
-                Guardar
-              </button>
             </div>
           </div>
-          <input
-            className="botones"
-            value={"ENVIAR"}
-            style={{
-              marginTop: 20,
-              backgroundColor: "#1976d2",
-              padding: 10,
-              borderRadius: 5,
-              borderWidth: 1,
-              cursor: "pointer",
-              color: "white",
-              fontWeight: "bold",
-            }}
-            type="submit"
-          />
         </form>
       </div>
     </>
   );
 }
 
-export default CrearLlamada;
+export default DetalleLlamada;

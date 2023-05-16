@@ -11,6 +11,7 @@ import Pruebas from "./components/Pruebas";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import CrearLlamada from "./components/CrearLlamada";
 import ConsultarLlamadas from "./components/ConsultarLlamadas";
+import DetalleLlamada from "./components/DetalleLlamada";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/pruebas" element={<Pruebas />} />
           <Route path="/crear" element={<CrearLlamada />} />
           <Route path="/consultar" element={<ConsultarLlamadas />} />
+          <Route path="/llamada" element={<DetalleLlamada />} />
         </Route>
       </Routes>
     </HashRouter>

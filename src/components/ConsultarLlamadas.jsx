@@ -45,8 +45,8 @@ const columns = [
   },
   {
     field: "fechaImplementacion",
-    headerName: "Fecha de Implementación",
-    width: 225,
+    headerName: "Implementación",
+    width: 125,
     valueGetter: (llamadas) =>
       moment(llamadas.row.attributes.fechaImplementacion).format("DD/MM/YYYY"),
     headerAlign: "center",
@@ -54,7 +54,7 @@ const columns = [
   {
     field: "descripcion",
     headerName: "Descripcion",
-    width: 300,
+    width: 200,
     valueGetter: (llamadas) => llamadas.row.attributes.descripcion,
     headerAlign: "center",
   },
@@ -65,59 +65,58 @@ const columns = [
     valueGetter: (llamadas) => llamadas.row.attributes.creadoPor,
     headerAlign: "center",
   },
-  {
-    field: "firmaJefeInmediato",
-    headerName: "Firma Jefe Inmediato",
-    width: 150,
-    headerAlign: "center",
-    renderCell: (llamadas) => (
-      <img
-        src={llamadas.row.attributes.firmaJefeInmediato}
-        style={{ width: "100%" }}
-      />
-    ),
-  },
-  {
-    field: "firmaRrhh",
-    headerName: "Firma RRHH",
-    width: 150,
-    headerAlign: "center",
-    renderCell: (llamadas) => (
-      <img src={llamadas.row.attributes.firmaRrhh} style={{ width: "100%" }} />
-    ),
-  },
-  {
-    field: "firmaColaborador",
-    headerName: "Firma Colaborador",
-    width: 150,
-    headerAlign: "center",
-    renderCell: (llamadas) => (
-      <img
-        src={llamadas.row.attributes.firmaColaborador}
-        style={{ width: "100%" }}
-      />
-    ),
-  },
-  {
-    field: "firmaGerencia",
-    headerName: "Firma Gerencia",
-    width: 150,
-    headerAlign: "center",
-    renderCell: (llamadas) => (
-      <img
-        src={llamadas.row.attributes.firmaGerencia}
-        style={{ width: "100%" }}
-      />
-    ),
-  },
+  // {
+  //   field: "firmaJefeInmediato",
+  //   headerName: "Firma Jefe Inmediato",
+  //   width: 150,
+  //   headerAlign: "center",
+  //   renderCell: (llamadas) => (
+  //     <img
+  //       src={llamadas.row.attributes.firmaJefeInmediato}
+  //       style={{ width: "100%" }}
+  //     />
+  //   ),
+  // },
+  // {
+  //   field: "firmaRrhh",
+  //   headerName: "Firma RRHH",
+  //   width: 150,
+  //   headerAlign: "center",
+  //   renderCell: (llamadas) => (
+  //     <img src={llamadas.row.attributes.firmaRrhh} style={{ width: "100%" }} />
+  //   ),
+  // },
+  // {
+  //   field: "firmaColaborador",
+  //   headerName: "Firma Colaborador",
+  //   width: 150,
+  //   headerAlign: "center",
+  //   renderCell: (llamadas) => (
+  //     <img
+  //       src={llamadas.row.attributes.firmaColaborador}
+  //       style={{ width: "100%" }}
+  //     />
+  //   ),
+  // },
+  // {
+  //   field: "firmaGerencia",
+  //   headerName: "Firma Gerencia",
+  //   width: 150,
+  //   headerAlign: "center",
+  //   renderCell: (llamadas) => (
+  //     <img
+  //       src={llamadas.row.attributes.firmaGerencia}
+  //       style={{ width: "100%" }}
+  //     />
+  //   ),
+  // },
 ];
 
-export default function ConsultarLlamadas() {
+export default function ConsultarLlamadas(data) {
   const [llamadas, setLlamadas] = useState([]);
   const [rowSelected, setRowSelected] = useState([]);
   const token = localStorage.getItem("token");
   const usuario = localStorage.getItem("usuario");
-  console.log(usuario);
 
   const config = {
     headers: {
@@ -133,7 +132,8 @@ export default function ConsultarLlamadas() {
 
   const detalle = () => {
     const rowText = rowSelected.toString();
-    console.log(rowText);
+
+    localStorage.setItem("idDetalle", rowText), window.open("/#/llamada");
   };
 
   return (
