@@ -340,7 +340,7 @@ function CrearLlamada() {
                 borderWidth: 1,
               }}
             >
-              <label htmlFor="">Firma Recursos Humanos</label>
+              <label htmlFor="">Firma RRHH o Testigo</label>
               <SignatureCanvas
                 ref={firmarrhh}
                 penColor="black"

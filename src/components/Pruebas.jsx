@@ -1,77 +1,120 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import { Button } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
-import depto from "../assets/depto.png";
-import empleado from "../assets/empleado.png";
-import llamada from "../assets/llamada.png";
-import puesto from "../assets/puesto.png";
-import usuarioImg from "../assets/usuario.png";
+import moment from "moment";
+import "moment/locale/es";
+import MenuTop from "./MenuTop";
+moment.locale("es");
 
-function Menu() {
-  const navigate = useNavigate();
-  const usuario = localStorage.getItem("usuario").replace(".", " ");
+const columns = [
+  { field: "id", headerName: "ID", width: 90, headerAlign: "center" },
+  {
+    field: "nombreCompleto",
+    headerName: "Nombre Completo",
+    width: 250,
+    valueGetter: (llamadas) =>
+      llamadas.row.attributes.empleado.data.attributes.nombreCompleto,
+    headerAlign: "center",
+  },
+  {
+    field: "departamento",
+    headerName: "Departamento",
+    width: 110,
+    valueGetter: (llamadas) =>
+      llamadas.row.attributes.departamento.data.attributes.descripcion,
+    headerAlign: "center",
+  },
+  {
+    field: "puesto",
+    headerName: "Puesto",
+    width: 110,
+    valueGetter: (llamadas) =>
+      llamadas.row.attributes.puesto.data.attributes.descripcion,
+    headerAlign: "center",
+  },
+  {
+    field: "grado",
+    headerName: "Grado",
+    width: 225,
+    valueGetter: (llamadas) => llamadas.row.attributes.grado,
+    headerAlign: "center",
+  },
+  {
+    field: "fechaImplementacion",
+    headerName: "Implementación",
+    width: 125,
+    valueGetter: (llamadas) =>
+      moment(llamadas.row.attributes.fechaImplementacion).format("DD/MM/YYYY"),
+    headerAlign: "center",
+  },
+  {
+    field: "descripcion",
+    headerName: "Descripcion",
+    width: 200,
+    valueGetter: (llamadas) => llamadas.row.attributes.descripcion,
+    headerAlign: "center",
+  },
+  {
+    field: "creadoPor",
+    headerName: "Creado Por",
+    width: 125,
+    valueGetter: (llamadas) => llamadas.row.attributes.creadoPor,
+    headerAlign: "center",
+  },
+];
+
+export default function Pruebas() {
+  const [llamadas, setLlamadas] = useState([]);
+  const [rowSelected, setRowSelected] = useState([]);
+  const token = localStorage.getItem("token");
+
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:1337/api/llamadade-atencions?populate=*", config)
+      .then((res) => setLlamadas(res.data.data));
+  }, []);
+
+  const detalle = () => {
+    const rowText = rowSelected.toString();
+
+    localStorage.setItem("idDetalle", rowText), window.open("/#/llamada");
+  };
 
   return (
-    <div>
-      <h1 style={{ marginTop: 0, marginBottom: 20 }}>
-        Bienvenid@ 👋 {usuario}
-      </h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/departamentos");
+    <>
+      <MenuTop />
+      <Box sx={{ height: 450, width: "100%" }}>
+        <Button variant="contained" onClick={detalle}>
+          Ver Detalle
+        </Button>
+        <DataGrid
+          style={{ marginTop: 10 }}
+          rows={llamadas}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
           }}
-        >
-          <h4>Departamentos</h4>
-          <img src={depto} alt="Departamento" />
-        </div>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/empleados");
+          pageSizeOptions={[5, 10, 15, 20]}
+          loading={!llamadas.length}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          onRowSelectionModelChange={(data) => {
+            setRowSelected(data);
           }}
-        >
-          <h4>Empleados</h4>
-          <img src={empleado} alt="Empleado" />
-        </div>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/llamadas");
-          }}
-        >
-          <h4>Llamadas de Atencion</h4>
-          <img src={llamada} alt="Llamada de atención" />
-        </div>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/puestos");
-          }}
-        >
-          <h4>Puestos</h4>
-          <img src={puesto} alt="Puesto" />
-        </div>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/usuarios");
-          }}
-        >
-          <h4>Usuarios</h4>
-          <img src={usuarioImg} alt="Usuario" />
-        </div>
-      </div>
-      <img style={{ marginTop: 50 }} src={logo} alt="Logo" />
-    </div>
+          slots={{ toolbar: GridToolbar }}
+        />
+      </Box>
+    </>
   );
 }
-
-export default Menu;

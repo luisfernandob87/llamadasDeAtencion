@@ -65,58 +65,12 @@ const columns = [
     valueGetter: (llamadas) => llamadas.row.attributes.creadoPor,
     headerAlign: "center",
   },
-  // {
-  //   field: "firmaJefeInmediato",
-  //   headerName: "Firma Jefe Inmediato",
-  //   width: 150,
-  //   headerAlign: "center",
-  //   renderCell: (llamadas) => (
-  //     <img
-  //       src={llamadas.row.attributes.firmaJefeInmediato}
-  //       style={{ width: "100%" }}
-  //     />
-  //   ),
-  // },
-  // {
-  //   field: "firmaRrhh",
-  //   headerName: "Firma RRHH",
-  //   width: 150,
-  //   headerAlign: "center",
-  //   renderCell: (llamadas) => (
-  //     <img src={llamadas.row.attributes.firmaRrhh} style={{ width: "100%" }} />
-  //   ),
-  // },
-  // {
-  //   field: "firmaColaborador",
-  //   headerName: "Firma Colaborador",
-  //   width: 150,
-  //   headerAlign: "center",
-  //   renderCell: (llamadas) => (
-  //     <img
-  //       src={llamadas.row.attributes.firmaColaborador}
-  //       style={{ width: "100%" }}
-  //     />
-  //   ),
-  // },
-  // {
-  //   field: "firmaGerencia",
-  //   headerName: "Firma Gerencia",
-  //   width: 150,
-  //   headerAlign: "center",
-  //   renderCell: (llamadas) => (
-  //     <img
-  //       src={llamadas.row.attributes.firmaGerencia}
-  //       style={{ width: "100%" }}
-  //     />
-  //   ),
-  // },
 ];
 
-export default function ConsultarLlamadas(data) {
+export default function ConsultarLlamadas() {
   const [llamadas, setLlamadas] = useState([]);
   const [rowSelected, setRowSelected] = useState([]);
   const token = localStorage.getItem("token");
-  const usuario = localStorage.getItem("usuario");
 
   const config = {
     headers: {
@@ -136,6 +90,13 @@ export default function ConsultarLlamadas(data) {
     localStorage.setItem("idDetalle", rowText), window.open("/#/llamada");
   };
 
+  const [sortModel, setSortModel] = useState([
+    {
+      field: "id",
+      sort: "desc",
+    },
+  ]);
+
   return (
     <>
       <MenuTop />
@@ -150,11 +111,12 @@ export default function ConsultarLlamadas(data) {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 20,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          sortModel={sortModel}
+          pageSizeOptions={[20]}
           loading={!llamadas.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {

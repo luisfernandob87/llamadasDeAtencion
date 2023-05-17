@@ -25,14 +25,26 @@ function DetalleLlamada() {
       )
       .then((res) => setInfo(res.data.data));
   }, []);
-
-  console.log(info);
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form style={{ maxWidth: 800 }}>
-          <h2 style={{ marginTop: 0 }}>FORMATO DE ASESORÍA PARA MEJORAR</h2>
-          <p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 20,
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ maxWidth: 75, maxHeight: 75, marginTop: 10 }}
+            />
+            <h2>FORMATO DE ASESORÍA PARA MEJORAR</h2>
+          </div>
+          <p style={{ marginTop: 5 }}>
             Fecha:{" "}
             <strong>
               {moment(info.attributes?.createdAt).format("DD/MM/YYYY HH:MM")}
@@ -90,21 +102,45 @@ function DetalleLlamada() {
             desempeño, segundo y tercer nivel de asesoria (usar hoja anexa en
             caso necesario)
           </p>
-          <div style={{ display: "flex" }}>
-            <div style={{ display: "grid", width: "33%" }}>
-              <p>Fecha de Implementación</p>
+          <div style={{ display: "flex", gap: 10 }}>
+            <div
+              style={{
+                display: "grid",
+                width: "33%",
+                borderStyle: "solid",
+                borderRadius: 10,
+                borderWidth: 1,
+              }}
+            >
+              <p style={{ textAlign: "center" }}>Fecha de Implementación</p>
               <strong>
                 {moment(info.attributes?.fechaImplementacion).format(
                   "DD/MM/YYYY"
                 )}
               </strong>
             </div>
-            <div style={{ display: "grid", width: "33%" }}>
-              <p>Acción Correctiva</p>
+            <div
+              style={{
+                display: "grid",
+                width: "33%",
+                borderStyle: "solid",
+                borderRadius: 10,
+                borderWidth: 1,
+              }}
+            >
+              <p style={{ textAlign: "center" }}>Acción Correctiva</p>
               <strong>{info.attributes?.accionCorrectiva}</strong>
             </div>
-            <div style={{ display: "grid", width: "33%" }}>
-              <p>Compromiso</p>
+            <div
+              style={{
+                display: "grid",
+                width: "33%",
+                borderStyle: "solid",
+                borderRadius: 10,
+                borderWidth: 1,
+              }}
+            >
+              <p style={{ textAlign: "center" }}>Compromiso</p>
               <strong>{info.attributes?.compromiso}</strong>
             </div>
           </div>
@@ -180,14 +216,10 @@ function DetalleLlamada() {
                 height: 175,
               }}
             >
-              <p style={{ textAlign: "center" }}>Firma Recursos Humanos</p>
+              <p style={{ textAlign: "center" }}>Firma RRHH o Testigo</p>
               <img
                 style={{ maxWidth: "90%" }}
-                src={
-                  info.attributes?.firmaRrhh === ""
-                    ? logo
-                    : info.attributes?.firmaRrhh
-                }
+                src={info.attributes?.firmaRrhh}
                 alt="Firma Recursos Humanos"
               />
             </div>
