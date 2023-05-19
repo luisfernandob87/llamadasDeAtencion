@@ -184,7 +184,7 @@ function DetalleLlamada() {
             >
               <p style={{ textAlign: "center" }}>Firma Colaborador(a)</p>
               <img
-                style={{ maxWidth: "90%" }}
+                style={{ maxWidth: "80%" }}
                 src={info.attributes?.firmaColaborador}
                 alt="Firma Colaborador"
               />
@@ -201,7 +201,7 @@ function DetalleLlamada() {
             >
               <p style={{ textAlign: "center" }}>Firma Jefe Inmediato</p>
               <img
-                style={{ maxWidth: "90%" }}
+                style={{ maxWidth: "80%" }}
                 src={info.attributes?.firmaJefeInmediato}
                 alt="Firma Jefe Inmediato"
               />
