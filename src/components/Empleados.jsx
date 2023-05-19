@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, esES } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -27,19 +27,6 @@ const columns = [
     width: 300,
     valueGetter: (nombreCompleto) =>
       nombreCompleto.row.attributes.nombreCompleto,
-  },
-  {
-    field: "estado",
-    headerName: "Estado",
-    width: 200,
-    valueGetter: (estado) => estado.row.attributes.estado,
-  },
-  {
-    field: "inicioLabores",
-    headerName: "Inicio de Labores",
-    width: 200,
-    valueGetter: (inicioLabores) =>
-      moment(inicioLabores.row.attributes.inicioLabores).format("DD/MM/YYYY"),
   },
 ];
 
@@ -102,14 +89,10 @@ export default function Empleados() {
   };
   const submit = (data) => {
     const nameTexto = data.identifierName;
-    const estadoTexto = estado;
-    const fechaTexto = data.identifierFecha;
 
     const dataJson = {
       data: {
         nombreCompleto: nameTexto,
-        estado: estadoTexto,
-        inicioLabores: fechaTexto,
       },
     };
     axios
@@ -127,15 +110,11 @@ export default function Empleados() {
 
   const updRegistro = (data) => {
     const nameTexto = data.identifier;
-    const estadoTexto = estado;
-    const fechaTexto = data.identifierFecha;
 
     const rowText = rowSelected.toString();
     const dataJson = {
       data: {
         nombreCompleto: nameTexto,
-        estado: estadoTexto,
-        inicioLabores: fechaTexto,
       },
     };
 
@@ -151,6 +130,12 @@ export default function Empleados() {
         }
       });
   };
+  const [sortModel, setSortModel] = useState([
+    {
+      field: "nombreCompleto",
+      sort: "asc",
+    },
+  ]);
 
   return (
     <>
@@ -183,26 +168,6 @@ export default function Empleados() {
                   type="text"
                   {...register("identifierName")}
                 />
-
-                <FormControl fullWidth>
-                  <InputLabel id="estado">Estado</InputLabel>
-                  <Select
-                    value={estado}
-                    labelId="estado"
-                    id="estado"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="En Prueba">En Prueba</MenuItem>
-                    <MenuItem value="En Planilla">En Planilla</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <TextField
-                  id="inicioLabores"
-                  variant="outlined"
-                  type="date"
-                  {...register("identifierFecha")}
-                />
               </div>
               <Button variant="contained" type="submit">
                 Crear
@@ -229,24 +194,6 @@ export default function Empleados() {
                   type="text"
                   {...register("identifier")}
                 />
-                <FormControl fullWidth>
-                  <InputLabel id="estado">Estado</InputLabel>
-                  <Select
-                    value={estado}
-                    labelId="estado"
-                    id="estado"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="En Prueba">En Prueba</MenuItem>
-                    <MenuItem value="En Planilla">En Planilla</MenuItem>
-                  </Select>
-                </FormControl>
-                <TextField
-                  id="inicioLabores"
-                  variant="outlined"
-                  type="date"
-                  {...register("identifierFecha")}
-                />
               </div>
               <Button variant="contained" type="submit">
                 Actualizar
@@ -265,12 +212,14 @@ export default function Empleados() {
               },
             },
           }}
+          sortModel={sortModel}
           pageSizeOptions={[5]}
           loading={!empleados.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {
             setRowSelected(data);
           }}
+          slots={{ toolbar: GridToolbar }}
         />
       </Box>
     </>
