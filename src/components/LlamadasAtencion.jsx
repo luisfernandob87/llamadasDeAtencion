@@ -1,31 +1,42 @@
-import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import MenuTop from "./MenuTop";
+import add from "../assets/add.png";
+import search from "../assets/search.png";
 
 function LlamadasAtencion() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <>
       <MenuTop />
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate("/crear");
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          marginTop: "10%",
         }}
       >
-        Crear Llamadas de Atención
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate("/consultar");
-        }}
-      >
-        Consultar Llamadas de Atención
-      </Button>
-    </div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/crear");
+          }}
+        >
+          <img src={add} alt="Add" />
+          <h4>Crear Llamadas de Atención</h4>
+        </div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/consultar");
+          }}
+        >
+          <img src={search} alt="Search" />
+          <h4>Consultar Llamadas de Atención</h4>
+        </div>
+      </div>
+    </>
   );
 }
 

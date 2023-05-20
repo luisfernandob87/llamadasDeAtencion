@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import "../crearLlamada.css";
 
 function MenuTop() {
   const navigate = useNavigate();
@@ -18,10 +19,14 @@ function MenuTop() {
           justifyContent: "space-between",
           marginBottom: 10,
           alignItems: "center",
+          borderBottomStyle: "solid",
+          borderWidth: 1,
+          borderColor: "#1976d2",
         }}
       >
         <img src={logo} alt="Logo" style={{ maxWidth: "4%", height: "4%" }} />
         <p
+          className="link"
           onClick={() => {
             navigate("/departamentos");
           }}
@@ -30,7 +35,7 @@ function MenuTop() {
           Departamentos
         </p>
         <p
-          style={{ cursor: "pointer" }}
+          className="link"
           onClick={() => {
             navigate("/empleados");
           }}
@@ -38,7 +43,7 @@ function MenuTop() {
           Empleados
         </p>
         <p
-          style={{ cursor: "pointer" }}
+          className="link"
           onClick={() => {
             navigate("/llamadas");
           }}
@@ -46,7 +51,7 @@ function MenuTop() {
           Llamada de Atención
         </p>
         <p
-          style={{ cursor: "pointer" }}
+          className="link"
           onClick={() => {
             navigate("/puestos");
           }}
@@ -54,7 +59,7 @@ function MenuTop() {
           Puestos
         </p>
         <p
-          style={{ cursor: "pointer" }}
+          className="link"
           onClick={() => {
             navigate("/usuarios");
           }}

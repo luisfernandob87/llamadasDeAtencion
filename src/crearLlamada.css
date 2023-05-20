@@ -17,3 +17,12 @@ p {
   background-color: #1976d2;
   color: white;
 }
+.link {
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.link:hover {
+  background-color: #f3f4f5;
+  text-decoration: underline;
+}

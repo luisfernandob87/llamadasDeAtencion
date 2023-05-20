@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -43,8 +36,6 @@ const style = {
 };
 
 export default function Empleados() {
-  const [estado, setEstado] = useState("");
-
   const { register, handleSubmit } = useForm();
 
   //modal
@@ -54,10 +45,6 @@ export default function Empleados() {
   const handleOpen2 = () => setOpen2(true);
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
-
-  const handleChange = (event) => {
-    setEstado(event.target.value);
-  };
 
   const [empleados, setEmpleados] = useState([]);
   const token = localStorage.getItem("token");
