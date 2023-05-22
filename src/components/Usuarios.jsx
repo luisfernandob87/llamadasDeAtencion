@@ -58,21 +58,31 @@ export default function Usuarios() {
 
   const update = () => {
     axios
-      .get("http://localhost:1337/api/users", config)
+      .get(
+        "http://localhost:1337/api/users?filters[blocked][$eq]=false",
+        config
+      )
       .then((res) => setUsuarios(res.data));
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/users", config)
+      .get(
+        "http://localhost:1337/api/users?filters[blocked][$eq]=false",
+        config
+      )
       // .then((res) => console.log(res.data));
       .then((res) => setUsuarios(res.data));
   }, []);
 
   const borrar = () => {
     const rowText = rowSelected.toString();
+    const dataJson = {
+      blocked: true,
+    };
+
     axios
-      .delete(`http://localhost:1337/api/users/${rowText}`, config)
+      .put(`http://localhost:1337/api/users/${rowText}`, dataJson, config)
       .then(() => update());
   };
   const submit = (data) => {
@@ -223,11 +233,11 @@ export default function Usuarios() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           loading={!usuarios.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {

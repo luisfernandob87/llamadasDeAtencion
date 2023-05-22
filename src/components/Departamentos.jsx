@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import MenuTop from "./MenuTop";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
   {
     field: "descripcion",
     headerName: "Descripcion",
@@ -54,20 +53,35 @@ export default function Departamentos() {
 
   const update = () => {
     axios
-      .get("http://localhost:1337/api/departamentos", config)
+      .get(
+        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setDepartamentos(res.data.data));
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/departamentos", config)
+      .get(
+        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setDepartamentos(res.data.data));
   }, []);
 
   const borrar = () => {
     const rowText = rowSelected.toString();
+    const dataJson = {
+      data: {
+        estado: false,
+      },
+    };
     axios
-      .delete(`http://localhost:1337/api/departamentos/${rowText}`, config)
+      .put(
+        `http://localhost:1337/api/departamentos/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => update());
   };
   const submit = (data) => {
@@ -186,11 +200,11 @@ export default function Departamentos() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           loading={!departamentos.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {

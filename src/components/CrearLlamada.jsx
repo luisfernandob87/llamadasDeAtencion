@@ -24,13 +24,22 @@ function CrearLlamada() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
+      .get(
+        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setEmpleados(res.data.data));
     axios
-      .get("http://localhost:1337/api/departamentos", config)
+      .get(
+        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setDepartamentos(res.data.data));
     axios
-      .get("http://localhost:1337/api/puestos", config)
+      .get(
+        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setPuestos(res.data.data));
   }, []);
 

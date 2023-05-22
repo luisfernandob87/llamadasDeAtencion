@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import MenuTop from "./MenuTop";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
   {
     field: "descripcion",
     headerName: "Descripcion",
@@ -54,20 +53,32 @@ export default function Puestos() {
 
   const update = () => {
     axios
-      .get("http://localhost:1337/api/puestos", config)
+      .get(
+        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setPuestos(res.data.data));
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/puestos", config)
+      .get(
+        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setPuestos(res.data.data));
   }, []);
 
   const borrar = () => {
     const rowText = rowSelected.toString();
+    const dataJson = {
+      data: {
+        estado: false,
+      },
+    };
+
     axios
-      .delete(`http://localhost:1337/api/puestos/${rowText}`, config)
+      .put(`http://localhost:1337/api/puestos/${rowText}`, dataJson, config)
       .then(() => update());
   };
   const submit = (data) => {
@@ -182,11 +193,11 @@ export default function Puestos() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           loading={!puestos.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {

@@ -13,7 +13,6 @@ import MenuTop from "./MenuTop";
 moment.locale("es");
 
 const columns = [
-  { field: "id", headerName: "ID", width: 50 },
   {
     field: "nombreCompleto",
     headerName: "Nombre Completo",
@@ -58,20 +57,32 @@ export default function Empleados() {
 
   const update = () => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
+      .get(
+        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setEmpleados(res.data.data));
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/empleados", config)
+      .get(
+        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        config
+      )
       .then((res) => setEmpleados(res.data.data));
   }, []);
 
   const borrar = () => {
     const rowText = rowSelected.toString();
+
+    const dataJson = {
+      data: {
+        estado: false,
+      },
+    };
     axios
-      .delete(`http://localhost:1337/api/empleados/${rowText}`, config)
+      .put(`http://localhost:1337/api/empleados/${rowText}`, dataJson, config)
       .then(() => update());
   };
   const submit = (data) => {
@@ -195,12 +206,12 @@ export default function Empleados() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
           sortModel={sortModel}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           loading={!empleados.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {
