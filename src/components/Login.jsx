@@ -12,7 +12,7 @@ function Login() {
 
   const submit = (data) => {
     axios
-      .post("http://localhost:1337/api/auth/local", data)
+      .post("https://anvar-demo.onrender.com/api/auth/local", data)
       .then((res) => {
         localStorage.setItem("usuario", res.data.user.username),
           localStorage.setItem("token", res.data.jwt);

@@ -20,7 +20,7 @@ function DetalleLlamada() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/api/llamadade-atencions/${idDetalle}?populate=*`,
+        `https://anvar-demo.onrender.com/api/llamadade-atencions/${idDetalle}?populate=*`,
         config
       )
       .then((res) => setInfo(res.data.data));

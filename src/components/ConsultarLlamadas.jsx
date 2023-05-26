@@ -80,7 +80,10 @@ export default function ConsultarLlamadas() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/api/llamadade-atencions?populate=*", config)
+      .get(
+        "https://anvar-demo.onrender.com/api/llamadade-atencions?populate=*",
+        config
+      )
       .then((res) => setLlamadas(res.data.data));
   }, []);
 

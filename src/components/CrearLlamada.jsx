@@ -25,19 +25,19 @@ function CrearLlamada() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data));
     axios
       .get(
-        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamentos(res.data.data));
     axios
       .get(
-        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setPuestos(res.data.data));
@@ -118,7 +118,11 @@ function CrearLlamada() {
       },
     };
     axios
-      .post("http://localhost:1337/api/llamadade-atencions", dataJson, config)
+      .post(
+        "https://anvar-demo.onrender.com/api/llamadade-atencions",
+        dataJson,
+        config
+      )
       .then((res) => console.log(res));
     reset();
     firmarrhh.current.clear();

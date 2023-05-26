@@ -54,7 +54,7 @@ export default function Departamentos() {
   const update = () => {
     axios
       .get(
-        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamentos(res.data.data));
@@ -63,7 +63,7 @@ export default function Departamentos() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:1337/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamentos(res.data.data));
@@ -78,7 +78,7 @@ export default function Departamentos() {
     };
     axios
       .put(
-        `http://localhost:1337/api/departamentos/${rowText}`,
+        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
         dataJson,
         config
       )
@@ -92,7 +92,11 @@ export default function Departamentos() {
       },
     };
     axios
-      .post("http://localhost:1337/api/departamentos", dataJson, config)
+      .post(
+        "https://anvar-demo.onrender.com/api/departamentos",
+        dataJson,
+        config
+      )
       .then(() => {
         handleClose(false);
         update();
@@ -114,7 +118,7 @@ export default function Departamentos() {
     };
     axios
       .put(
-        `http://localhost:1337/api/departamentos/${rowText}`,
+        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
         dataJson,
         config
       )

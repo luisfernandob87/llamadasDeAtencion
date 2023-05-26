@@ -59,7 +59,7 @@ export default function Usuarios() {
   const update = () => {
     axios
       .get(
-        "http://localhost:1337/api/users?filters[blocked][$eq]=false",
+        "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
         config
       )
       .then((res) => setUsuarios(res.data));
@@ -68,7 +68,7 @@ export default function Usuarios() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:1337/api/users?filters[blocked][$eq]=false",
+        "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
         config
       )
       // .then((res) => console.log(res.data));
@@ -82,7 +82,11 @@ export default function Usuarios() {
     };
 
     axios
-      .put(`http://localhost:1337/api/users/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/users/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => update());
   };
   const submit = (data) => {
@@ -97,7 +101,7 @@ export default function Usuarios() {
     };
 
     axios
-      .post("http://localhost:1337/api/auth/local/register", dataJson)
+      .post("https://anvar-demo.onrender.com/api/auth/local/register", dataJson)
       .then(() => {
         handleClose(false);
         update();
@@ -121,7 +125,11 @@ export default function Usuarios() {
       password: passTexto,
     };
     axios
-      .put(`http://localhost:1337/api/users/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/users/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => {
         handleClose2(false);
         update();

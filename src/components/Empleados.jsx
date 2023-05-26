@@ -58,7 +58,7 @@ export default function Empleados() {
   const update = () => {
     axios
       .get(
-        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data));
@@ -67,7 +67,7 @@ export default function Empleados() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:1337/api/empleados?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data));
@@ -82,7 +82,11 @@ export default function Empleados() {
       },
     };
     axios
-      .put(`http://localhost:1337/api/empleados/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => update());
   };
   const submit = (data) => {
@@ -94,7 +98,7 @@ export default function Empleados() {
       },
     };
     axios
-      .post("http://localhost:1337/api/empleados", dataJson, config)
+      .post("https://anvar-demo.onrender.com/api/empleados", dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -117,7 +121,11 @@ export default function Empleados() {
     };
 
     axios
-      .put(`http://localhost:1337/api/empleados/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => {
         handleClose2(false);
         update();

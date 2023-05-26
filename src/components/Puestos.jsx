@@ -54,7 +54,7 @@ export default function Puestos() {
   const update = () => {
     axios
       .get(
-        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setPuestos(res.data.data));
@@ -63,7 +63,7 @@ export default function Puestos() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:1337/api/puestos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setPuestos(res.data.data));
@@ -78,7 +78,11 @@ export default function Puestos() {
     };
 
     axios
-      .put(`http://localhost:1337/api/puestos/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => update());
   };
   const submit = (data) => {
@@ -89,7 +93,7 @@ export default function Puestos() {
       },
     };
     axios
-      .post("http://localhost:1337/api/puestos", dataJson, config)
+      .post("https://anvar-demo.onrender.com/api/puestos", dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -110,7 +114,11 @@ export default function Puestos() {
       },
     };
     axios
-      .put(`http://localhost:1337/api/puestos/${rowText}`, dataJson, config)
+      .put(
+        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
+        dataJson,
+        config
+      )
       .then(() => {
         handleClose2(false);
         update();
