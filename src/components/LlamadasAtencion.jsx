@@ -23,7 +23,7 @@ function LlamadasAtencion() {
             navigate("/crear");
           }}
         >
-          <img src={add} alt="Add" />
+          <img src={add} alt="Add" className="imgMenu" />
           <h4>Crear Llamadas de Atención</h4>
         </div>
         <div
@@ -32,7 +32,7 @@ function LlamadasAtencion() {
             navigate("/consultar");
           }}
         >
-          <img src={search} alt="Search" />
+          <img src={search} alt="Search" className="imgMenu" />
           <h4>Consultar Llamadas de Atención</h4>
         </div>
       </div>

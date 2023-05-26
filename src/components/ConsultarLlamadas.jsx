@@ -123,6 +123,12 @@ export default function ConsultarLlamadas() {
             setRowSelected(data);
           }}
           slots={{ toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              printOptions: { disableToolbarButton: true },
+              showQuickFilter: true,
+            },
+          }}
         />
       </Box>
     </>

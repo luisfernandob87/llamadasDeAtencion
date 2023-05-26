@@ -151,14 +151,15 @@ export default function Puestos() {
                   label="Descripción"
                   variant="outlined"
                   type="text"
-                  {...register("identifier")}
+                  {...register("identifier", { required: true })}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Crear
-              </Button>
-              <Button variant="contained" type="reset">
-                Borrar
               </Button>
             </form>
           </Box>
@@ -180,7 +181,11 @@ export default function Puestos() {
                   {...register("identifier")}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Actualizar
               </Button>
             </form>

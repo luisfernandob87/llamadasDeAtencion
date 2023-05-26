@@ -139,7 +139,7 @@ function CrearLlamada() {
             <label htmlFor="selectEmpleado">Nombre colaborador (a): </label>
             <input
               id="selectEmpleado"
-              {...register("empleado")}
+              {...register("empleado", { required: true })}
               list="empleados"
               onChange={handleChange}
               value={selectedEmployee}
@@ -155,7 +155,10 @@ function CrearLlamada() {
           </div>
           <div className="container">
             <label htmlFor="departamento">Departamento: </label>
-            <select id="departamento" {...register("departamento")}>
+            <select
+              id="departamento"
+              {...register("departamento", { required: true })}
+            >
               <option></option>
               {departamentos.map((departamento) => (
                 <option key={departamento?.id} value={departamento.id}>
@@ -166,7 +169,7 @@ function CrearLlamada() {
           </div>
           <div className="container">
             <label htmlFor="puesto">Puesto: </label>
-            <select id="puesto" {...register("puesto")}>
+            <select id="puesto" {...register("puesto", { required: true })}>
               <option></option>
               {puestos.map((puesto) => (
                 <option key={puesto?.id} value={puesto.id}>
@@ -177,7 +180,7 @@ function CrearLlamada() {
           </div>
           <div className="container">
             <label htmlFor="grado">Tipo de Llamada de Atención: </label>
-            <select id="grado" {...register("grado")}>
+            <select id="grado" {...register("grado", { required: true })}>
               <option></option>
               <option value="Llamada de atención verbal">
                 Llamada de atención verbal
@@ -199,7 +202,7 @@ function CrearLlamada() {
                 height: 50,
               }}
               id="descripcion"
-              {...register("descripcion")}
+              {...register("descripcion", { required: true })}
               type="text"
               placeholder="Descripción"
             />
@@ -227,7 +230,7 @@ function CrearLlamada() {
               <input
                 style={{ height: 50 }}
                 id="fechaImplementacion"
-                {...register("fechaImplementacion")}
+                {...register("fechaImplementacion", { required: true })}
                 type="date"
               />
             </div>
@@ -236,7 +239,7 @@ function CrearLlamada() {
               <textarea
                 id="accionCorrectiva"
                 style={{ height: 50 }}
-                {...register("accionCorrectiva")}
+                {...register("accionCorrectiva", { required: true })}
                 type="text"
                 placeholder="Acción Correctiva"
               />
@@ -246,7 +249,7 @@ function CrearLlamada() {
               <textarea
                 style={{ height: 50 }}
                 id="compromiso"
-                {...register("compromiso")}
+                {...register("compromiso", { required: true })}
                 type="text"
                 placeholder="Compromiso"
               />
@@ -260,7 +263,7 @@ function CrearLlamada() {
             <input
               style={{ width: 200, marginBottom: 20 }}
               placeholder="Próximo llamado de atención"
-              {...register("proximoGrado")}
+              {...register("proximoGrado", { required: true })}
               type="text"
             ></input>
           </div>
@@ -277,14 +280,14 @@ function CrearLlamada() {
               <label htmlFor="inicio">Inicio</label>
               <input
                 id="inicio"
-                {...register("fechaInicioCompromiso")}
+                {...register("fechaInicioCompromiso", { required: true })}
                 type="date"
               />
 
               <label htmlFor="final">Final</label>
               <input
                 id="final"
-                {...register("fechaFinalCompromiso")}
+                {...register("fechaFinalCompromiso", { required: true })}
                 type="date"
               />
             </div>

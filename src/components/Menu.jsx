@@ -6,10 +6,15 @@ import empleado from "../assets/empleado.png";
 import llamada from "../assets/llamada.png";
 import puesto from "../assets/puesto.png";
 import usuarioImg from "../assets/usuario.png";
+import salida from "../assets/salida.png";
 
 function Menu() {
   const navigate = useNavigate();
   const usuario = localStorage.getItem("usuario").replace(".", " ");
+  const cerrarSesion = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div>
@@ -29,7 +34,7 @@ function Menu() {
           }}
         >
           <h4>Departamentos</h4>
-          <img src={depto} alt="Departamento" />
+          <img src={depto} alt="Departamento" className="imgMenu" />
         </div>
         <div
           style={{ cursor: "pointer" }}
@@ -38,7 +43,7 @@ function Menu() {
           }}
         >
           <h4>Empleados</h4>
-          <img src={empleado} alt="Empleado" />
+          <img src={empleado} alt="Empleado" className="imgMenu" />
         </div>
         <div
           style={{ cursor: "pointer" }}
@@ -47,7 +52,7 @@ function Menu() {
           }}
         >
           <h4>Llamadas de Atención</h4>
-          <img src={llamada} alt="Llamada de atención" />
+          <img src={llamada} alt="Llamada de atención" className="imgMenu" />
         </div>
         <div
           style={{ cursor: "pointer" }}
@@ -56,7 +61,7 @@ function Menu() {
           }}
         >
           <h4>Puestos</h4>
-          <img src={puesto} alt="Puesto" />
+          <img src={puesto} alt="Puesto" className="imgMenu" />
         </div>
         <div
           style={{ cursor: "pointer" }}
@@ -65,10 +70,19 @@ function Menu() {
           }}
         >
           <h4>Usuarios</h4>
-          <img src={usuarioImg} alt="Usuario" />
+          <img src={usuarioImg} alt="Usuario" className="imgMenu" />
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={cerrarSesion}>
+          <h4>Cerrar Sesión</h4>
+          <img src={salida} alt="Cerrar Sesión" className="imgMenu" />
         </div>
       </div>
-      <img style={{ marginTop: 50, width: "10%" }} src={logo} alt="Logo" />
+      <img
+        style={{ marginTop: 50 }}
+        src={logo}
+        alt="Logo"
+        className="imgMenu"
+      />
     </div>
   );
 }

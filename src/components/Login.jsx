@@ -24,7 +24,7 @@ function Login() {
         }
       });
     reset({
-      email: "",
+      identifier: "",
       password: "",
     });
   };
@@ -39,7 +39,7 @@ function Login() {
             label="Usuario"
             variant="outlined"
             type="text"
-            {...register("identifier")}
+            {...register("identifier", { required: true })}
           />
         </div>
         <br />
@@ -49,7 +49,7 @@ function Login() {
             label="Contraseña"
             variant="outlined"
             type="password"
-            {...register("password")}
+            {...register("password", { required: true })}
           />
         </div>
         <br />

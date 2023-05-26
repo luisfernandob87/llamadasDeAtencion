@@ -163,28 +163,29 @@ export default function Usuarios() {
                   label="Usuario"
                   variant="outlined"
                   type="text"
-                  {...register("identifierUser")}
+                  {...register("identifierUser", { required: true })}
                 />
                 <TextField
                   id="email"
                   label="Correo Electronico"
                   variant="outlined"
                   type="email"
-                  {...register("identifierEmail")}
+                  {...register("identifierEmail", { required: true })}
                 />
                 <TextField
                   id="password"
                   label="Contraseña"
                   variant="outlined"
                   type="password"
-                  {...register("identifierPassword")}
+                  {...register("identifierPassword", { required: true })}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Crear
-              </Button>
-              <Button variant="contained" type="reset">
-                Borrar
               </Button>
             </form>
           </Box>
@@ -220,7 +221,11 @@ export default function Usuarios() {
                   {...register("identifierPassword")}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Actualizar
               </Button>
             </form>

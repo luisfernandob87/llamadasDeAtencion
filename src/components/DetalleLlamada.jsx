@@ -40,7 +40,7 @@ function DetalleLlamada() {
             <img
               src={logo}
               alt="Logo"
-              style={{ maxWidth: 75, maxHeight: 75, marginTop: 10 }}
+              style={{ maxWidth: 60, maxHeight: 60 }}
             />
             <h2>FORMATO DE ASESORÍA PARA MEJORAR</h2>
           </div>

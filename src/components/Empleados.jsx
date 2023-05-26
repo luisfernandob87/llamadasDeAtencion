@@ -164,14 +164,15 @@ export default function Empleados() {
                   label="Nombre Completo"
                   variant="outlined"
                   type="text"
-                  {...register("identifierName")}
+                  {...register("identifierName", { required: true })}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Crear
-              </Button>
-              <Button variant="contained" type="reset">
-                Borrar
               </Button>
             </form>
           </Box>
@@ -193,7 +194,11 @@ export default function Empleados() {
                   {...register("identifier")}
                 />
               </div>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ marginTop: 10 }}
+              >
                 Actualizar
               </Button>
             </form>
@@ -218,6 +223,12 @@ export default function Empleados() {
             setRowSelected(data);
           }}
           slots={{ toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              printOptions: { disableToolbarButton: true },
+              showQuickFilter: true,
+            },
+          }}
         />
       </Box>
     </>

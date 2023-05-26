@@ -26,3 +26,6 @@ p {
   background-color: #f3f4f5;
   text-decoration: underline;
 }
+.imgMenu {
+  max-width: 75px;
+}
