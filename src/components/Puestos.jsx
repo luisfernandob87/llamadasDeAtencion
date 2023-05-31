@@ -57,7 +57,10 @@ export default function Puestos() {
         "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setPuestos(res.data.data));
+      .then((res) => setPuestos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -66,7 +69,10 @@ export default function Puestos() {
         "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setPuestos(res.data.data));
+      .then((res) => setPuestos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const borrar = () => {
@@ -83,7 +89,10 @@ export default function Puestos() {
         dataJson,
         config
       )
-      .then(() => update());
+      .then(() => update())
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const submit = (data) => {
     const descTexto = data.identifier;

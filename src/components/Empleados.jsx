@@ -61,7 +61,10 @@ export default function Empleados() {
         "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setEmpleados(res.data.data));
+      .then((res) => setEmpleados(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -70,7 +73,10 @@ export default function Empleados() {
         "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setEmpleados(res.data.data));
+      .then((res) => setEmpleados(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const borrar = () => {
@@ -87,7 +93,10 @@ export default function Empleados() {
         dataJson,
         config
       )
-      .then(() => update());
+      .then(() => update())
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const submit = (data) => {
     const nameTexto = data.identifierName;

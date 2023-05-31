@@ -84,7 +84,10 @@ export default function ConsultarLlamadas() {
         "https://anvar-demo.onrender.com/api/llamadade-atencions?populate=*",
         config
       )
-      .then((res) => setLlamadas(res.data.data));
+      .then((res) => setLlamadas(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const detalle = () => {

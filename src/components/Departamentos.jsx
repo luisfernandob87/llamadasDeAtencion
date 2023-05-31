@@ -57,7 +57,10 @@ export default function Departamentos() {
         "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setDepartamentos(res.data.data));
+      .then((res) => setDepartamentos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -66,7 +69,10 @@ export default function Departamentos() {
         "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setDepartamentos(res.data.data));
+      .then((res) => setDepartamentos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const borrar = () => {
@@ -82,7 +88,10 @@ export default function Departamentos() {
         dataJson,
         config
       )
-      .then(() => update());
+      .then(() => update())
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const submit = (data) => {
     const descTexto = data.identifier;

@@ -62,7 +62,10 @@ export default function Usuarios() {
         "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
         config
       )
-      .then((res) => setUsuarios(res.data));
+      .then((res) => setUsuarios(res.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -72,7 +75,10 @@ export default function Usuarios() {
         config
       )
       // .then((res) => console.log(res.data));
-      .then((res) => setUsuarios(res.data));
+      .then((res) => setUsuarios(res.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const borrar = () => {
@@ -87,7 +93,10 @@ export default function Usuarios() {
         dataJson,
         config
       )
-      .then(() => update());
+      .then(() => update())
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const submit = (data) => {
     const userTexto = data.identifierUser;

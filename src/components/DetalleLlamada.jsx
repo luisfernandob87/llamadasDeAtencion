@@ -23,7 +23,10 @@ function DetalleLlamada() {
         `https://anvar-demo.onrender.com/api/llamadade-atencions/${idDetalle}?populate=*`,
         config
       )
-      .then((res) => setInfo(res.data.data));
+      .then((res) => setInfo(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
   return (
     <>
@@ -42,16 +45,16 @@ function DetalleLlamada() {
               alt="Logo"
               style={{ maxWidth: 60, maxHeight: 60 }}
             />
-            <h2>FORMATO DE ASESORÍA PARA MEJORAR</h2>
+            <h2 style={{ marginTop: 0 }}>FORMATO DE ASESORÍA PARA MEJORAR</h2>
           </div>
-          <p style={{ marginTop: 5 }}>
+          <p style={{ marginTop: 5, marginBottom: 5 }}>
             Fecha:{" "}
             <strong>
               {moment(info.attributes?.createdAt).format("DD/MM/YYYY HH:MM")}
             </strong>
           </p>
           <div className="container">
-            <p>
+            <p style={{ margin: 0 }}>
               Nombre colaborador (a):{" "}
               <strong>
                 {info.attributes?.empleado.data.attributes.nombreCompleto}
@@ -59,7 +62,7 @@ function DetalleLlamada() {
             </p>
           </div>
           <div className="container">
-            <p>
+            <p style={{ margin: 0 }}>
               Departamento:{" "}
               <strong>
                 {info.attributes?.departamento.data.attributes.descripcion}
@@ -67,7 +70,7 @@ function DetalleLlamada() {
             </p>
           </div>
           <div className="container">
-            <p>
+            <p style={{ margin: 0 }}>
               Puesto:{" "}
               <strong>
                 {info.attributes?.puesto.data.attributes.descripcion}
@@ -75,13 +78,13 @@ function DetalleLlamada() {
             </p>
           </div>
           <div className="container">
-            <p>
+            <p style={{ margin: 0 }}>
               Tipo de Llamada de Atención:{" "}
               <strong>{info.attributes?.grado}</strong>
             </p>
           </div>
           <div className="container">
-            <p>
+            <p style={{ margin: 0 }}>
               De acuerdo a las obligaciones de su puesto hacemos la presenta
               llamada de atención por el motivo siguiente:
             </p>
@@ -91,13 +94,13 @@ function DetalleLlamada() {
               aspecto, con el fin de no afectar su normal desempeño y el
               correcto funcionamiento de la institución.
             </p>
-            <p>
+            <p style={{ margin: 0 }}>
               A continuación se detalla el compromiso adquirido por el
               colaborador(a) asesorado.
             </p>
           </div>
-          <h3 style={{ margin: 0 }}>PLAN DE ACCIÓN</h3>
-          <p style={{ margin: 0 }}>
+          <h3 style={{ margin: 5 }}>PLAN DE ACCIÓN</h3>
+          <p style={{ margin: 10 }}>
             Acciones que se seguirán para corregir este comportamiento o
             desempeño, segundo y tercer nivel de asesoria (usar hoja anexa en
             caso necesario)
@@ -112,7 +115,9 @@ function DetalleLlamada() {
                 borderWidth: 1,
               }}
             >
-              <p style={{ textAlign: "center" }}>Fecha de Implementación</p>
+              <p style={{ textAlign: "center", margin: 0 }}>
+                Fecha de Implementación
+              </p>
               <strong>
                 {moment(info.attributes?.fechaImplementacion).format(
                   "DD/MM/YYYY"
@@ -128,7 +133,9 @@ function DetalleLlamada() {
                 borderWidth: 1,
               }}
             >
-              <p style={{ textAlign: "center" }}>Acción Correctiva</p>
+              <p style={{ textAlign: "center", margin: 0 }}>
+                Acción Correctiva
+              </p>
               <strong>{info.attributes?.accionCorrectiva}</strong>
             </div>
             <div
@@ -140,7 +147,7 @@ function DetalleLlamada() {
                 borderWidth: 1,
               }}
             >
-              <p style={{ textAlign: "center" }}>Compromiso</p>
+              <p style={{ textAlign: "center", margin: 0 }}>Compromiso</p>
               <strong>{info.attributes?.compromiso}</strong>
             </div>
           </div>

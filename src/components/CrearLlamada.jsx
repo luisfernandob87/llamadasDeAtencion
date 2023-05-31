@@ -28,19 +28,28 @@ function CrearLlamada() {
         "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setEmpleados(res.data.data));
+      .then((res) => setEmpleados(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
     axios
       .get(
         "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setDepartamentos(res.data.data));
+      .then((res) => setDepartamentos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
     axios
       .get(
         "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setPuestos(res.data.data));
+      .then((res) => setPuestos(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const jefeInmediato = useRef({});
@@ -123,7 +132,10 @@ function CrearLlamada() {
         dataJson,
         config
       )
-      .then((res) => console.log(res));
+      .then((res) => console.log(res))
+      .catch(function (error) {
+        console.log(error);
+      });
     reset();
     firmarrhh.current.clear();
     jefeInmediato.current.clear();
