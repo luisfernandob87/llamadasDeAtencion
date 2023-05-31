@@ -38,6 +38,8 @@ const style = {
 export default function Usuarios() {
   const { register, handleSubmit } = useForm();
 
+  const rol = localStorage.getItem("rol");
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -74,7 +76,6 @@ export default function Usuarios() {
         "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
         config
       )
-      // .then((res) => console.log(res.data));
       .then((res) => setUsuarios(res.data))
       .catch(function (error) {
         console.log(error);
@@ -156,13 +157,22 @@ export default function Usuarios() {
 
       <Box sx={{ height: 375, width: "100%" }}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Button variant="contained" onClick={handleOpen}>
+          <Button
+            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            onClick={handleOpen}
+          >
             Crear
           </Button>
-          <Button variant="contained" onClick={handleOpen2}>
+          <Button
+            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            onClick={handleOpen2}
+          >
             Actualizar
           </Button>
-          <Button variant="contained" onClick={borrar}>
+          <Button
+            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            onClick={borrar}
+          >
             Borrar
           </Button>
         </div>

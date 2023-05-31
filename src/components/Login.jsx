@@ -16,6 +16,20 @@ function Login() {
       .then((res) => {
         localStorage.setItem("usuario", res.data.user.username),
           localStorage.setItem("token", res.data.jwt);
+
+        const config = {
+          headers: {
+            Authorization: "Bearer " + res.data.jwt,
+          },
+        };
+
+        axios
+          .get(
+            "https://anvar-demo.onrender.com/api/users/me?populate=*",
+            config
+          )
+          .then((res) => localStorage.setItem("rol", res.data.role.name));
+
         navigate("/menu");
       })
       .catch((error) => {

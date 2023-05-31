@@ -37,6 +37,8 @@ const style = {
 export default function Empleados() {
   const { register, handleSubmit } = useForm();
 
+  const rol = localStorage.getItem("rol");
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -160,10 +162,16 @@ export default function Empleados() {
           <Button variant="contained" onClick={handleOpen}>
             Crear
           </Button>
-          <Button variant="contained" onClick={handleOpen2}>
+          <Button
+            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            onClick={handleOpen2}
+          >
             Actualizar
           </Button>
-          <Button variant="contained" onClick={borrar}>
+          <Button
+            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            onClick={borrar}
+          >
             Borrar
           </Button>
         </div>

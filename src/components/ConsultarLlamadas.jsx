@@ -72,6 +72,8 @@ export default function ConsultarLlamadas() {
   const [rowSelected, setRowSelected] = useState([]);
   const token = localStorage.getItem("token");
 
+  const rol = localStorage.getItem("rol");
+
   const config = {
     headers: {
       Authorization: "Bearer " + token,
@@ -107,7 +109,10 @@ export default function ConsultarLlamadas() {
     <>
       <MenuTop />
       <Box sx={{ height: 450, width: "100%" }}>
-        <Button variant="contained" onClick={detalle}>
+        <Button
+          variant={rol == "Authenticated" ? "disabled" : "contained"}
+          onClick={detalle}
+        >
           Ver Detalle
         </Button>
         <DataGrid
