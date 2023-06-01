@@ -163,13 +163,13 @@ export default function Empleados() {
             Crear
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={handleOpen2}
           >
             Actualizar
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={borrar}
           >
             Borrar

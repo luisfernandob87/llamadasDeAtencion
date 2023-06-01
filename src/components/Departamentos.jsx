@@ -150,19 +150,19 @@ export default function Departamentos() {
       <Box sx={{ height: 375, width: "100%" }}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={handleOpen}
           >
             Crear
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={handleOpen2}
           >
             Actualizar
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={borrar}
           >
             Borrar

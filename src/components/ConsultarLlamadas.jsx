@@ -110,7 +110,7 @@ export default function ConsultarLlamadas() {
       <MenuTop />
       <Box sx={{ height: 450, width: "100%" }}>
         <Button
-          variant={rol == "Authenticated" ? "disabled" : "contained"}
+          variant={rol == "Supervisor" ? "disabled" : "contained"}
           onClick={detalle}
         >
           Ver Detalle

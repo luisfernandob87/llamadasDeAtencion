@@ -73,7 +73,7 @@ export default function Usuarios() {
   useEffect(() => {
     axios
       .get(
-        "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
+        "https://anvar-demo.onrender.com/api/users?populate=*&filters[blocked][$eq]=false",
         config
       )
       .then((res) => setUsuarios(res.data))
@@ -103,6 +103,8 @@ export default function Usuarios() {
     const userTexto = data.identifierUser;
     const emailTexto = data.identifierEmail;
     const passTexto = data.identifierPassword;
+
+    console.log(data);
 
     const dataJson = {
       username: userTexto,
@@ -158,19 +160,19 @@ export default function Usuarios() {
       <Box sx={{ height: 375, width: "100%" }}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={handleOpen}
           >
             Crear
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={handleOpen2}
           >
             Actualizar
           </Button>
           <Button
-            variant={rol == "Authenticated" ? "disabled" : "contained"}
+            variant={rol == "Supervisor" ? "disabled" : "contained"}
             onClick={borrar}
           >
             Borrar
