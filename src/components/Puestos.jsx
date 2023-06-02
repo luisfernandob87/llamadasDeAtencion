@@ -56,7 +56,7 @@ export default function Puestos() {
   const update = () => {
     axios
       .get(
-        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/puestos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setPuestos(res.data.data))
@@ -68,7 +68,7 @@ export default function Puestos() {
   useEffect(() => {
     axios
       .get(
-        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/puestos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setPuestos(res.data.data))
@@ -87,7 +87,7 @@ export default function Puestos() {
 
     axios
       .put(
-        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
+        `https://strapi-production-db11.up.railway.app/api/puestos/${rowText}`,
         dataJson,
         config
       )
@@ -104,7 +104,11 @@ export default function Puestos() {
       },
     };
     axios
-      .post("https://anvar-demo.onrender.com/api/puestos", dataJson, config)
+      .post(
+        "https://strapi-production-db11.up.railway.app/api/puestos",
+        dataJson,
+        config
+      )
       .then(() => {
         handleClose(false);
         update();
@@ -126,7 +130,7 @@ export default function Puestos() {
     };
     axios
       .put(
-        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
+        `https://strapi-production-db11.up.railway.app/api/puestos/${rowText}`,
         dataJson,
         config
       )

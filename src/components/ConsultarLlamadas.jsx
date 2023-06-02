@@ -28,14 +28,14 @@ const columns = [
       llamadas.row.attributes.departamento.data.attributes.descripcion,
     headerAlign: "center",
   },
-  {
-    field: "puesto",
-    headerName: "Puesto",
-    width: 110,
-    valueGetter: (llamadas) =>
-      llamadas.row.attributes.puesto.data.attributes.descripcion,
-    headerAlign: "center",
-  },
+  // {
+  //   field: "puesto",
+  //   headerName: "Puesto",
+  //   width: 110,
+  //   valueGetter: (llamadas) =>
+  //     llamadas.row.attributes.puesto.data.attributes.descripcion,
+  //   headerAlign: "center",
+  // },
   {
     field: "grado",
     headerName: "Grado",
@@ -83,7 +83,7 @@ export default function ConsultarLlamadas() {
   useEffect(() => {
     axios
       .get(
-        "https://anvar-demo.onrender.com/api/llamadade-atencions?populate=*",
+        "https://strapi-production-db11.up.railway.app/api/llamadade-atencions?populate=*",
         config
       )
       .then((res) => setLlamadas(res.data.data))
