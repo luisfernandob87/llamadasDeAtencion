@@ -119,7 +119,7 @@ function CrearEntradaTarde() {
         firmaJefeInmediato: dataJefeInmediato,
         firmaRrhh: dataRrhh,
         firmaColaborador: dataColaborador,
-        fechaImplementacion: data.fechaImplementacion,
+        fechaImplementacion: fecha,
         inicioCompromiso: data.fechaInicioCompromiso,
         finalCompromiso: data.fechaFinalCompromiso,
         proximoGrado: data.proximoGrado,
