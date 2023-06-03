@@ -24,7 +24,16 @@ function LlamadasAtencion() {
           }}
         >
           <img src={add} alt="Add" className="imgMenu" />
-          <h4>Crear Llamadas de Atención</h4>
+          <h4>Crear Llamadas de Atención Administrativa</h4>
+        </div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/crearEntradasTarde");
+          }}
+        >
+          <img src={add} alt="Add" className="imgMenu" />
+          <h4>Crear Llamadas de Atención por Entrada Tarde</h4>
         </div>
         <div
           style={{ cursor: "pointer" }}

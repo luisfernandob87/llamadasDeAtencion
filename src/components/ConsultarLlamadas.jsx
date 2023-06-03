@@ -28,14 +28,14 @@ const columns = [
       llamadas.row.attributes.departamento.data.attributes.descripcion,
     headerAlign: "center",
   },
-  // {
-  //   field: "puesto",
-  //   headerName: "Puesto",
-  //   width: 110,
-  //   valueGetter: (llamadas) =>
-  //     llamadas.row.attributes.puesto.data.attributes.descripcion,
-  //   headerAlign: "center",
-  // },
+  {
+    field: "puesto",
+    headerName: "Puesto",
+    width: 110,
+    valueGetter: (llamadas) =>
+      llamadas.row.attributes.puesto.data.attributes.descripcion,
+    headerAlign: "center",
+  },
   {
     field: "grado",
     headerName: "Grado",
@@ -95,7 +95,23 @@ export default function ConsultarLlamadas() {
   const detalle = () => {
     const rowText = rowSelected.toString();
 
-    localStorage.setItem("idDetalle", rowText), window.open("/#/llamada");
+    axios
+      .get(
+        `https://strapi-production-db11.up.railway.app/api/llamadade-atencions/${rowText}`,
+        config
+      )
+      .then((res) => {
+        const grado = res.data.data.attributes.grado;
+        if (grado == "Llegada tarde") {
+          localStorage.setItem("idDetalle", rowText),
+            window.open("/#/detalleEntradasTarde");
+        } else {
+          localStorage.setItem("idDetalle", rowText), window.open("/#/llamada");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const [sortModel, setSortModel] = useState([

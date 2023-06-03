@@ -11,6 +11,8 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import CrearLlamada from "./components/CrearLlamada";
 import ConsultarLlamadas from "./components/ConsultarLlamadas";
 import DetalleLlamada from "./components/DetalleLlamada";
+import DetalleEntradasTarde from "./components/DetalleEntradasTarde";
+import CrearEntradaTarde from "./components/CrearEntradaTarde";
 
 function App() {
   return (
@@ -25,8 +27,13 @@ function App() {
           <Route path="/puestos" element={<Puestos />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/crear" element={<CrearLlamada />} />
+          <Route path="/crearEntradasTarde" element={<CrearEntradaTarde />} />
           <Route path="/consultar" element={<ConsultarLlamadas />} />
           <Route path="/llamada" element={<DetalleLlamada />} />
+          <Route
+            path="/detalleEntradasTarde"
+            element={<DetalleEntradasTarde />}
+          />
         </Route>
       </Routes>
     </HashRouter>
