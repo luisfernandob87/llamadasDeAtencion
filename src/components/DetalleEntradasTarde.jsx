@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../crearLlegaTarde.css";
 import axios from "axios";
 import moment from "moment";
+import logo from "../assets/logo.png";
 
 function DetalleEntradasTarde() {
   const token = localStorage.getItem("token");
@@ -30,12 +31,18 @@ function DetalleEntradasTarde() {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <form style={{ maxWidth: 800 }}>
-        <h2 style={{ marginBottom: 0 }}>ANVAR SOLUTIONS CENTER S.A.</h2>
-        <h5 style={{ marginTop: 0, marginBottom: 0 }}>
-          7 Av. 7-07 Zona 9 edificio Arrend Nivel 10
-        </h5>
-        <h5 style={{ margin: 0 }}>Guatemala, Guatemala.</h5>
-        <hr />
+        <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+          <img src={logo} alt="Logo" style={{ maxWidth: 60, maxHeight: 60 }} />{" "}
+          <div>
+            <h2 style={{ margin: 0 }}>ANVAR SOLUTIONS CENTER S.A.</h2>
+            <h5 style={{ marginTop: 0, marginBottom: 0 }}>
+              7 Av. 7-07 Zona 9 edificio Arrend Nivel 10
+            </h5>
+            <h5 style={{ margin: 0 }}>Guatemala, Guatemala.</h5>
+          </div>
+        </div>
+
+        <hr style={{ margin: 0 }} />
         <p style={{ textAlign: "end", margin: 0 }}>
           Fecha:{" "}
           <strong>
@@ -68,13 +75,13 @@ function DetalleEntradasTarde() {
           </p>
         </div>
         <div className="container">
-          <h5 style={{ textAlign: "center", margin: 5 }}>Capitulo 2</h5>
-          <h5 style={{ textAlign: "center", margin: 5 }}>Jornadas laborales</h5>
-          <p>
+          <h5 style={{ textAlign: "center", margin: 0 }}>Capitulo 2</h5>
+          <h5 style={{ textAlign: "center", margin: 0 }}>Jornadas laborales</h5>
+          <p style={{ margin: 0 }}>
             <strong>Articulo 4.-</strong> Todos los trabajadores están obligados
             a firmar personalmente su horario de entrada y salida de la empresa.
           </p>
-          <p>
+          <p style={{ margin: 0 }}>
             También están obligados a registrar la iniciación y terminación del
             tiempo destinado a su receso.
           </p>
@@ -108,9 +115,11 @@ function DetalleEntradasTarde() {
             <li>
               El ingreso en el turno vespertino es de 10:00 hrs. a 19:00 hrs.
             </li>
-            <p style={{ marginBottom: 0 }}>Sabado/Domingo</p>
-            <ul>
-              <li>El ingreso es de 08:00 hrs. a 12:00 hrs.</li>
+            <p style={{ margin: 0 }}>Sabado/Domingo</p>
+            <ul style={{ margin: 0 }}>
+              <li style={{ margin: 0 }}>
+                El ingreso es de 08:00 hrs. a 12:00 hrs.
+              </li>
             </ul>
           </ul>
           <p style={{ marginTop: 10, marginBottom: 0 }}>
@@ -119,20 +128,20 @@ function DetalleEntradasTarde() {
           <p style={{ textDecorationLine: "underline", margin: 0 }}>
             Lunes a Viernes
           </p>
-          <ul>
+          <ul style={{ margin: 0 }}>
             <li>El ingreso es de 09:00 hrs. a 18:00 hrs.</li>
           </ul>
-          <p style={{ marginBottom: 0 }}>
+          <p style={{ margin: 0 }}>
             <strong>Articulo 6.-</strong> En caso de verdadera excepción se
             considera ocacionalmente una tolerancia de 5 minutos y solo por
             retraso involuntario para la hora de entrada a las labores.
           </p>
-          <p style={{ marginTop: 0 }}>
+          <p style={{ margin: 0 }}>
             Asi también se considera como retardo después del minuto 6 al minuto
             14. En todos los casos, cada tres llegadas tardes se procederá a
             descontar un día de salario.
           </p>
-          <p style={{ marginBottom: 0 }}>
+          <p style={{ margin: 0 }}>
             Por medio de la presente yo{" "}
             <strong>
               {info.attributes?.empleado.data.attributes.nombreCompleto}
@@ -161,7 +170,7 @@ function DetalleEntradasTarde() {
               borderStyle: "solid",
               borderRadius: 10,
               alignSelf: "center",
-              height: 175,
+              height: 150,
             }}
           >
             <p style={{ textAlign: "center" }}>Firma Colaborador(a)</p>
@@ -178,7 +187,7 @@ function DetalleEntradasTarde() {
               borderRadius: 10,
               borderWidth: 1,
               alignSelf: "center",
-              height: 175,
+              height: 150,
             }}
           >
             <p style={{ textAlign: "center" }}>Firma Jefe Inmediato</p>
@@ -195,7 +204,7 @@ function DetalleEntradasTarde() {
               borderRadius: 10,
               borderWidth: 1,
               alignSelf: "center",
-              height: 175,
+              height: 150,
             }}
           >
             <p style={{ textAlign: "center" }}>Firma RRHH o Testigo</p>

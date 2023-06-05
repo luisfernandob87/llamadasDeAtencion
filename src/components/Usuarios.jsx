@@ -44,7 +44,25 @@ export default function Usuarios() {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleOpen2 = () => setOpen2(true);
+  const [updUser, setUpdUser] = useState("");
+  const [updCorreo, setUpdCorreo] = useState("");
+  const handleOpen2 = () => {
+    const rowText = rowSelected.toString();
+    axios
+      .get(
+        `https://strapi-production-db11.up.railway.app/api/users/${rowText}`,
+        config
+      )
+      .then((res) => {
+        setUpdUser(res.data.username);
+        setUpdCorreo(res.data.email);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setOpen2(true);
+  };
+
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
 
@@ -191,6 +209,7 @@ export default function Usuarios() {
             <form onSubmit={handleSubmit(submit)}>
               <div>
                 <TextField
+                  style={{ marginBottom: 10 }}
                   id="username"
                   label="Usuario"
                   variant="outlined"
@@ -198,6 +217,7 @@ export default function Usuarios() {
                   {...register("identifierUser", { required: true })}
                 />
                 <TextField
+                  style={{ marginBottom: 10 }}
                   id="email"
                   label="Correo Electronico"
                   variant="outlined"
@@ -232,6 +252,7 @@ export default function Usuarios() {
             <form onSubmit={handleSubmit(updRegistro)}>
               <div>
                 <TextField
+                  helperText={updUser}
                   id="username"
                   label="Usuario"
                   variant="outlined"
@@ -239,6 +260,7 @@ export default function Usuarios() {
                   {...register("identifierUser")}
                 />
                 <TextField
+                  helperText={updCorreo}
                   id="email"
                   label="Correo Electronico"
                   variant="outlined"

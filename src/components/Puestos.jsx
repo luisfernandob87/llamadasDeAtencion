@@ -39,7 +39,21 @@ export default function Puestos() {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleOpen2 = () => setOpen2(true);
+  const [descActualizar, setDescActualizar] = useState("");
+  const handleOpen2 = () => {
+    const rowText = rowSelected.toString();
+    axios
+      .get(
+        `https://strapi-production-db11.up.railway.app/api/puestos/${rowText}`,
+        config
+      )
+      .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
+      .catch(function (error) {
+        console.log(error);
+      });
+    setOpen2(true);
+  };
+
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
 
@@ -206,6 +220,7 @@ export default function Puestos() {
             <form onSubmit={handleSubmit(updRegistro)}>
               <div>
                 <TextField
+                  helperText={descActualizar}
                   id="descripcion"
                   label="Descripción"
                   variant="outlined"

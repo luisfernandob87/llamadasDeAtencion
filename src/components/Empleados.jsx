@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -17,21 +24,23 @@ const columns = [
     field: "nombreCompleto",
     headerName: "Nombre Completo",
     width: 300,
-    valueGetter: (empleados) => empleados.row.attributes.nombreCompleto,
+    valueGetter: (nombreCompleto) =>
+      nombreCompleto.row.attributes?.nombreCompleto,
   },
   {
     field: "departamento",
     headerName: "Departamento",
     width: 300,
-    valueGetter: (empleados) =>
-      empleados.row.attributes.departamento.data.attributes.descripcion,
+    valueGetter: (departamento) =>
+      departamento.row.attributes.departamento.data.attributes?.descripcion,
   },
   {
     field: "cartera",
     headerName: "Cartera",
     width: 300,
-    valueGetter: (empleados) =>
-      empleados.row.attributes.cartera.data.attributes.descripcion,
+    valueGetter: (cartera) =>
+      cartera.row.attributes?.cartera.data.attributes?.descripcion,
+    default: "N/A",
   },
 ];
 
@@ -56,13 +65,49 @@ export default function Empleados() {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleOpen2 = () => setOpen2(true);
+  const [updNombre, setUpdNombre] = useState("");
+  const [updDepartamento, setUpdDepartamento] = useState("");
+  const [updCartera, setUpdCartera] = useState("");
+  const handleOpen2 = () => {
+    const rowText = rowSelected.toString();
+    axios
+      .get(
+        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}/?populate=*`,
+        config
+      )
+      .then((res) => {
+        setUpdNombre(res.data.data.attributes.nombreCompleto);
+        setUpdDepartamento(
+          res.data.data.attributes.departamento.data.attributes.descripcion
+        );
+        setUpdCartera(
+          res.data.data.attributes.cartera.data.attributes.descripcion
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setOpen2(true);
+    console.log(updDepartamento);
+  };
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
+  const [departamento, setDepartamento] = useState([]);
+  const [cartera, setCartera] = useState([]);
+  const [deptoSeleccionado, setDeptoSeleccionado] = useState("");
+  const [carteraSeleccionada, setCarteraSeleccionada] = useState("");
 
   const [empleados, setEmpleados] = useState([]);
   const token = localStorage.getItem("token");
   const [rowSelected, setRowSelected] = useState([]);
+
+  const handleChangeDepartamento = (event) => {
+    setDeptoSeleccionado(event.target.value);
+  };
+
+  const handleChangeCartera = (event) => {
+    setCarteraSeleccionada(event.target.value);
+  };
 
   const config = {
     headers: {
@@ -73,7 +118,7 @@ export default function Empleados() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data))
@@ -85,10 +130,28 @@ export default function Empleados() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
+    axios
+      .get(
+        "https://strapi-production-db11.up.railway.app/api/departamentos?filters[estado][$eq]=true",
+        config
+      )
+      .then((res) => setDepartamento(res.data.data))
+      .catch(function (error) {
+        console.log(error);
+      });
+    axios
+      .get(
+        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
+        config
+      )
+      .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
@@ -119,8 +182,15 @@ export default function Empleados() {
     const dataJson = {
       data: {
         nombreCompleto: nameTexto,
+        departamento: {
+          id: deptoSeleccionado,
+        },
+        cartera: {
+          id: carteraSeleccionada,
+        },
       },
     };
+    console.log(dataJson);
     axios
       .post(
         "https://strapi-production-db11.up.railway.app/api/empleados",
@@ -139,12 +209,18 @@ export default function Empleados() {
   };
 
   const updRegistro = (data) => {
-    const nameTexto = data.identifier;
+    const nameTexto = data.identifierName;
 
     const rowText = rowSelected.toString();
     const dataJson = {
       data: {
         nombreCompleto: nameTexto,
+        departamento: {
+          id: deptoSeleccionado,
+        },
+        cartera: {
+          id: carteraSeleccionada,
+        },
       },
     };
 
@@ -205,12 +281,45 @@ export default function Empleados() {
             <form onSubmit={handleSubmit(submit)}>
               <div>
                 <TextField
+                  style={{ width: "100%", marginBottom: 10 }}
                   id="nombreCompleto"
                   label="Nombre Completo"
                   variant="outlined"
                   type="text"
                   {...register("identifierName", { required: true })}
                 />
+                <FormControl style={{ width: "100%", marginBottom: 10 }}>
+                  <InputLabel id="departamento">Departamento</InputLabel>
+                  <Select
+                    required
+                    value={deptoSeleccionado}
+                    labelId="departamento"
+                    id="departamento"
+                    onChange={handleChangeDepartamento}
+                  >
+                    {departamento.map((depto) => (
+                      <MenuItem key={depto.id} value={depto.id}>
+                        {depto.attributes.descripcion}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl style={{ width: "100%" }}>
+                  <InputLabel id="cartera">Cartera</InputLabel>
+                  <Select
+                    required
+                    value={carteraSeleccionada}
+                    labelId="cartera"
+                    id="cartera"
+                    onChange={handleChangeCartera}
+                  >
+                    {cartera.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>
+                        {item.attributes.descripcion}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
               <Button
                 variant="contained"
@@ -232,13 +341,47 @@ export default function Empleados() {
             <form onSubmit={handleSubmit(updRegistro)}>
               <div>
                 <TextField
+                  helperText={updNombre}
+                  style={{ width: "100%", marginBottom: 10 }}
                   id="nombreCompleto"
                   label="Nombre Completo"
                   variant="outlined"
                   type="text"
-                  {...register("identifier")}
+                  {...register("identifierName", { required: true })}
                 />
               </div>
+              <FormControl style={{ width: "100%", marginBottom: 10 }}>
+                <InputLabel id="departamento">{updDepartamento}</InputLabel>
+                <Select
+                  required
+                  value={deptoSeleccionado}
+                  labelId="departamento"
+                  id="departamento"
+                  onChange={handleChangeDepartamento}
+                >
+                  {departamento.map((depto) => (
+                    <MenuItem key={depto.id} value={depto.id}>
+                      {depto.attributes.descripcion}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel id="cartera">{updCartera}</InputLabel>
+                <Select
+                  required
+                  value={carteraSeleccionada}
+                  labelId="cartera"
+                  id="cartera"
+                  onChange={handleChangeCartera}
+                >
+                  {cartera.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.attributes.descripcion}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <Button
                 variant="contained"
                 type="submit"

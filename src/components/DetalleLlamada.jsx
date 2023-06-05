@@ -45,7 +45,7 @@ function DetalleLlamada() {
               alt="Logo"
               style={{ maxWidth: 60, maxHeight: 60 }}
             />
-            <h2 style={{ marginTop: 0 }}>FORMATO DE ASESORÍA PARA MEJORAR</h2>
+            <h3 style={{ marginTop: 0 }}>FORMATO DE ASESORÍA PARA MEJORAR</h3>
           </div>
           <p style={{ marginTop: 5, marginBottom: 5 }}>
             Fecha:{" "}
@@ -99,7 +99,7 @@ function DetalleLlamada() {
               colaborador(a) asesorado.
             </p>
           </div>
-          <h3 style={{ margin: 5 }}>PLAN DE ACCIÓN</h3>
+          <h4 style={{ margin: 5 }}>PLAN DE ACCIÓN</h4>
           <p style={{ margin: 10 }}>
             Acciones que se seguirán para corregir este comportamiento o
             desempeño, segundo y tercer nivel de asesoria (usar hoja anexa en
@@ -165,7 +165,7 @@ function DetalleLlamada() {
                 display: "grid",
                 width: "20%",
                 textAlign: "center",
-                height: 175,
+                height: 150,
               }}
             >
               <p style={{ textAlign: "center", margin: 0 }}>
@@ -187,7 +187,7 @@ function DetalleLlamada() {
                 borderStyle: "solid",
                 borderRadius: 10,
                 alignSelf: "center",
-                height: 175,
+                height: 150,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma Colaborador(a)</p>
@@ -204,7 +204,7 @@ function DetalleLlamada() {
                 borderRadius: 10,
                 borderWidth: 1,
                 alignSelf: "center",
-                height: 175,
+                height: 150,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma Jefe Inmediato</p>
@@ -221,7 +221,7 @@ function DetalleLlamada() {
                 borderRadius: 10,
                 borderWidth: 1,
                 alignSelf: "center",
-                height: 175,
+                height: 150,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma RRHH o Testigo</p>

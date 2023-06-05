@@ -25,7 +25,7 @@ function MenuTop() {
         }}
       >
         <img src={logo} alt="Logo" style={{ maxWidth: "4%", height: "4%" }} />
-        <text
+        <a
           className="link"
           onClick={() => {
             navigate("/departamentos");
@@ -33,54 +33,50 @@ function MenuTop() {
           style={{ cursor: "pointer" }}
         >
           Departamentos
-        </text>
-        <text
+        </a>
+        <a
           className="link"
           onClick={() => {
             navigate("/crearCartera");
           }}
-          style={{ cursor: "pointer" }}
         >
           Cartera
-        </text>
-        <text
+        </a>
+        <a
           className="link"
           onClick={() => {
             navigate("/empleados");
           }}
         >
           Empleados
-        </text>
-        <text
+        </a>
+        <a
           className="link"
           onClick={() => {
             navigate("/llamadas");
           }}
         >
           Llamada de Atención
-        </text>
-        <text
+        </a>
+        <a
           className="link"
           onClick={() => {
             navigate("/puestos");
           }}
         >
           Puestos
-        </text>
-        <text
+        </a>
+        <a
           className="link"
           onClick={() => {
             navigate("/usuarios");
           }}
         >
           Usuarios
-        </text>
-        <text
-          onClick={cerrarSesion}
-          style={{ cursor: "pointer", color: "red" }}
-        >
+        </a>
+        <a onClick={cerrarSesion} style={{ cursor: "pointer", color: "red" }}>
           Cerrar Sesión
-        </text>
+        </a>
       </div>
     </>
   );
