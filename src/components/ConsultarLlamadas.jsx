@@ -125,10 +125,7 @@ export default function ConsultarLlamadas() {
     <>
       <MenuTop />
       <Box sx={{ height: 450, width: "100%" }}>
-        <Button
-          variant={rol == "Supervisor" ? "disabled" : "contained"}
-          onClick={detalle}
-        >
+        <Button variant="contained" onClick={detalle}>
           Ver Detalle
         </Button>
         <DataGrid

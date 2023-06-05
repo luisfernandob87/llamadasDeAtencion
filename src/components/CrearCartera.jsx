@@ -1,37 +1,20 @@
 import * as React from "react";
 import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { DataGrid, esES } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
-import moment from "moment";
-import "moment/locale/es";
 import MenuTop from "./MenuTop";
-moment.locale("es");
 
 const columns = [
   {
-    field: "nombreCompleto",
-    headerName: "Nombre Completo",
-    width: 300,
-    valueGetter: (empleados) => empleados.row.attributes.nombreCompleto,
-  },
-  {
-    field: "departamento",
-    headerName: "Departamento",
-    width: 300,
-    valueGetter: (empleados) =>
-      empleados.row.attributes.departamento.data.attributes.descripcion,
-  },
-  {
-    field: "cartera",
-    headerName: "Cartera",
-    width: 300,
-    valueGetter: (empleados) =>
-      empleados.row.attributes.cartera.data.attributes.descripcion,
+    field: "descripcion",
+    headerName: "Descripcion",
+    width: 400,
+    valueGetter: (cartera) => cartera.row.attributes.descripcion,
   },
 ];
 
@@ -47,7 +30,7 @@ const style = {
   p: 4,
 };
 
-export default function Empleados() {
+export default function CrearCartera() {
   const { register, handleSubmit } = useForm();
 
   const rol = localStorage.getItem("rol");
@@ -60,7 +43,7 @@ export default function Empleados() {
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
 
-  const [empleados, setEmpleados] = useState([]);
+  const [cartera, setCartera] = useState([]);
   const token = localStorage.getItem("token");
   const [rowSelected, setRowSelected] = useState([]);
 
@@ -73,10 +56,10 @@ export default function Empleados() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setEmpleados(res.data.data))
+      .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
@@ -85,10 +68,10 @@ export default function Empleados() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&?filters[estado][$eq]=true",
+        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
         config
       )
-      .then((res) => setEmpleados(res.data.data))
+      .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
@@ -96,7 +79,6 @@ export default function Empleados() {
 
   const borrar = () => {
     const rowText = rowSelected.toString();
-
     const dataJson = {
       data: {
         estado: false,
@@ -104,7 +86,7 @@ export default function Empleados() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}`,
+        `https://strapi-production-db11.up.railway.app/api/carteras/${rowText}`,
         dataJson,
         config
       )
@@ -114,16 +96,15 @@ export default function Empleados() {
       });
   };
   const submit = (data) => {
-    const nameTexto = data.identifierName;
-
+    const descTexto = data.identifier;
     const dataJson = {
       data: {
-        nombreCompleto: nameTexto,
+        descripcion: descTexto,
       },
     };
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/empleados",
+        "https://strapi-production-db11.up.railway.app/api/carteras",
         dataJson,
         config
       )
@@ -139,18 +120,16 @@ export default function Empleados() {
   };
 
   const updRegistro = (data) => {
-    const nameTexto = data.identifier;
-
     const rowText = rowSelected.toString();
+    const descTexto = data.identifier;
     const dataJson = {
       data: {
-        nombreCompleto: nameTexto,
+        descripcion: descTexto,
       },
     };
-
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}`,
+        `https://strapi-production-db11.up.railway.app/api/carteras/${rowText}`,
         dataJson,
         config
       )
@@ -164,12 +143,6 @@ export default function Empleados() {
         }
       });
   };
-  const [sortModel, setSortModel] = useState([
-    {
-      field: "nombreCompleto",
-      sort: "asc",
-    },
-  ]);
 
   return (
     <>
@@ -205,11 +178,11 @@ export default function Empleados() {
             <form onSubmit={handleSubmit(submit)}>
               <div>
                 <TextField
-                  id="nombreCompleto"
-                  label="Nombre Completo"
+                  id="descripcion"
+                  label="Descripción"
                   variant="outlined"
                   type="text"
-                  {...register("identifierName", { required: true })}
+                  {...register("identifier", { required: true })}
                 />
               </div>
               <Button
@@ -232,8 +205,8 @@ export default function Empleados() {
             <form onSubmit={handleSubmit(updRegistro)}>
               <div>
                 <TextField
-                  id="nombreCompleto"
-                  label="Nombre Completo"
+                  id="descripcion"
+                  label="Descripción"
                   variant="outlined"
                   type="text"
                   {...register("identifier")}
@@ -251,7 +224,7 @@ export default function Empleados() {
         </Modal>
         <DataGrid
           style={{ marginTop: 10 }}
-          rows={empleados}
+          rows={cartera}
           columns={columns}
           initialState={{
             pagination: {
@@ -260,19 +233,11 @@ export default function Empleados() {
               },
             },
           }}
-          sortModel={sortModel}
           pageSizeOptions={[10]}
-          loading={!empleados.length}
+          loading={!cartera.length}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           onRowSelectionModelChange={(data) => {
             setRowSelected(data);
-          }}
-          slots={{ toolbar: GridToolbar }}
-          componentsProps={{
-            toolbar: {
-              printOptions: { disableToolbarButton: true },
-              showQuickFilter: true,
-            },
           }}
         />
       </Box>

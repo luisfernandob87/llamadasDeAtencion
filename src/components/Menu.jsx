@@ -7,6 +7,7 @@ import llamada from "../assets/llamada.png";
 import puesto from "../assets/puesto.png";
 import usuarioImg from "../assets/usuario.png";
 import salida from "../assets/salida.png";
+import cartera from "../assets/cartera.png";
 
 function Menu() {
   const navigate = useNavigate();
@@ -33,8 +34,17 @@ function Menu() {
             navigate("/departamentos");
           }}
         >
-          <h4>Departamentos</h4>
+          <h4>Departamento</h4>
           <img src={depto} alt="Departamento" className="imgMenu" />
+        </div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/crearCartera");
+          }}
+        >
+          <h4>Cartera</h4>
+          <img src={cartera} alt="Cartera" className="imgMenu" />
         </div>
         <div
           style={{ cursor: "pointer" }}

@@ -13,6 +13,7 @@ import ConsultarLlamadas from "./components/ConsultarLlamadas";
 import DetalleLlamada from "./components/DetalleLlamada";
 import DetalleEntradasTarde from "./components/DetalleEntradasTarde";
 import CrearEntradaTarde from "./components/CrearEntradaTarde";
+import CrearCartera from "./components/CrearCartera";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/departamentos" element={<Departamentos />} />
           <Route path="/empleados" element={<Empleados />} />
+          <Route path="/crearCartera" element={<CrearCartera />} />
           <Route path="/llamadas" element={<LlamadasAtencion />} />
           <Route path="/puestos" element={<Puestos />} />
           <Route path="/usuarios" element={<Usuarios />} />

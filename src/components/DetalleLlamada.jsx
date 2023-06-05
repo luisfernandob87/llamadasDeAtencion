@@ -113,6 +113,7 @@ function DetalleLlamada() {
                 borderStyle: "solid",
                 borderRadius: 10,
                 borderWidth: 1,
+                height: 100,
               }}
             >
               <p style={{ textAlign: "center", margin: 0 }}>
