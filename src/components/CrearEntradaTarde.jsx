@@ -345,7 +345,6 @@ function CrearEntradaTarde() {
               <SignatureCanvas
                 ref={firmaColaborador}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",
@@ -371,7 +370,6 @@ function CrearEntradaTarde() {
               <SignatureCanvas
                 ref={jefeInmediato}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",
@@ -397,7 +395,6 @@ function CrearEntradaTarde() {
               <SignatureCanvas
                 ref={firmarrhh}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",

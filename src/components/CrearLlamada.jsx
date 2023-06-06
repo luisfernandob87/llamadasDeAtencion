@@ -348,7 +348,6 @@ function CrearLlamada() {
               <SignatureCanvas
                 ref={firmaColaborador}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",
@@ -374,7 +373,6 @@ function CrearLlamada() {
               <SignatureCanvas
                 ref={jefeInmediato}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",
@@ -400,7 +398,6 @@ function CrearLlamada() {
               <SignatureCanvas
                 ref={firmarrhh}
                 penColor="black"
-                backgroundColor="#f6f6f9"
                 canvasProps={{
                   height: 100,
                   className: "sigCanvas",

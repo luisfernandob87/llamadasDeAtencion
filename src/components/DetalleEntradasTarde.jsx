@@ -122,7 +122,7 @@ function DetalleEntradasTarde() {
               </li>
             </ul>
           </ul>
-          <p style={{ marginTop: 10, marginBottom: 0 }}>
+          <p style={{ marginTop: 10, margin: 0 }}>
             2. Horario de jornada personal administrativo
           </p>
           <p style={{ textDecorationLine: "underline", margin: 0 }}>
@@ -170,12 +170,14 @@ function DetalleEntradasTarde() {
               borderStyle: "solid",
               borderRadius: 10,
               alignSelf: "center",
-              height: 150,
+              height: 160,
             }}
           >
-            <p style={{ textAlign: "center" }}>Firma Colaborador(a)</p>
+            <p style={{ textAlign: "center", margin: 0 }}>
+              Firma Colaborador(a)
+            </p>
             <img
-              style={{ maxWidth: "80%" }}
+              style={{ maxWidth: "75%" }}
               src={info.attributes?.firmaColaborador}
               alt="Firma Colaborador"
             />
@@ -187,12 +189,14 @@ function DetalleEntradasTarde() {
               borderRadius: 10,
               borderWidth: 1,
               alignSelf: "center",
-              height: 150,
+              height: 160,
             }}
           >
-            <p style={{ textAlign: "center" }}>Firma Jefe Inmediato</p>
+            <p style={{ textAlign: "center", margin: 0 }}>
+              Firma Jefe Inmediato
+            </p>
             <img
-              style={{ maxWidth: "80%" }}
+              style={{ maxWidth: "75%" }}
               src={info.attributes?.firmaJefeInmediato}
               alt="Firma Jefe Inmediato"
             />
@@ -204,12 +208,14 @@ function DetalleEntradasTarde() {
               borderRadius: 10,
               borderWidth: 1,
               alignSelf: "center",
-              height: 150,
+              height: 160,
             }}
           >
-            <p style={{ textAlign: "center" }}>Firma RRHH o Testigo</p>
+            <p style={{ textAlign: "center", margin: 0 }}>
+              Firma RRHH o Testigo
+            </p>
             <img
-              style={{ maxWidth: "90%" }}
+              style={{ maxWidth: "75%" }}
               src={info.attributes?.firmaRrhh}
               alt="Firma Recursos Humanos"
             />

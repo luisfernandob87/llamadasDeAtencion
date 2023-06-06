@@ -187,12 +187,12 @@ function DetalleLlamada() {
                 borderStyle: "solid",
                 borderRadius: 10,
                 alignSelf: "center",
-                height: 150,
+                height: 160,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma Colaborador(a)</p>
               <img
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "75%" }}
                 src={info.attributes?.firmaColaborador}
                 alt="Firma Colaborador"
               />
@@ -204,12 +204,12 @@ function DetalleLlamada() {
                 borderRadius: 10,
                 borderWidth: 1,
                 alignSelf: "center",
-                height: 150,
+                height: 160,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma Jefe Inmediato</p>
               <img
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "75%" }}
                 src={info.attributes?.firmaJefeInmediato}
                 alt="Firma Jefe Inmediato"
               />
@@ -221,12 +221,12 @@ function DetalleLlamada() {
                 borderRadius: 10,
                 borderWidth: 1,
                 alignSelf: "center",
-                height: 150,
+                height: 160,
               }}
             >
               <p style={{ textAlign: "center" }}>Firma RRHH o Testigo</p>
               <img
-                style={{ maxWidth: "90%" }}
+                style={{ maxWidth: "75%" }}
                 src={info.attributes?.firmaRrhh}
                 alt="Firma Recursos Humanos"
               />
