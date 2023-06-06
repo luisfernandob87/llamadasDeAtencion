@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import "../crearLlamada.css";
 import moment from "moment";
 import MenuTop from "./MenuTop";
+import Swal from "sweetalert2";
 
 function CrearEntradaTarde() {
   const token = localStorage.getItem("token");
@@ -102,49 +103,74 @@ function CrearEntradaTarde() {
         )?.id || ""
       : "";
   const submit = (data) => {
-    const dataJson = {
-      data: {
-        departamento: {
-          id: data.departamento,
-        },
-        empleado: {
-          id: selectedEmployeeId,
-        },
-        puesto: {
-          id: data.puesto,
-        },
-        grado: "Llegada tarde",
-        descripcion: "Llegada tarde",
-        accionCorrectiva: data.accionCorrectiva,
-        compromiso: data.compromiso,
-        creadoPor: usuario,
-        firmaJefeInmediato: dataJefeInmediato,
-        firmaRrhh: dataRrhh,
-        firmaColaborador: dataColaborador,
-        fechaImplementacion: fechaCreacion,
-        inicioCompromiso: data.inicioCompromiso,
-        finalCompromiso: data.finalCompromiso,
-        proximoGrado: data.proximoGrado,
-        entradaTarde: `${data.entradaTarde}:00`,
-      },
-    };
-
-    console.log(dataJson);
-    axios
-      .post(
-        "https://strapi-production-db11.up.railway.app/api/llamadade-atencions",
-        dataJson,
-        config
-      )
-      .then((res) => console.log(res))
-      .catch(function (error) {
-        console.log(error);
+    if (dataColaborador == "" || dataJefeInmediato == "" || dataRrhh == "") {
+      Swal.fire({
+        icon: "error",
+        title: "Faltan Firmas",
+        confirmButtonColor: "#1976d2",
       });
-    reset();
-    firmarrhh.current.clear();
-    jefeInmediato.current.clear();
-    firmaColaborador.current.clear();
-    setSelectedEmployee("");
+    } else {
+      const dataJson = {
+        data: {
+          departamento: {
+            id: data.departamento,
+          },
+          empleado: {
+            id: selectedEmployeeId,
+          },
+          puesto: {
+            id: data.puesto,
+          },
+          grado: "Llegada tarde",
+          descripcion: "Llegada tarde",
+          accionCorrectiva: data.accionCorrectiva,
+          compromiso: data.compromiso,
+          creadoPor: usuario,
+          firmaJefeInmediato: dataJefeInmediato,
+          firmaRrhh: dataRrhh,
+          firmaColaborador: dataColaborador,
+          fechaImplementacion: fechaCreacion,
+          inicioCompromiso: data.inicioCompromiso,
+          finalCompromiso: data.finalCompromiso,
+          proximoGrado: data.proximoGrado,
+          entradaTarde: `${data.entradaTarde}:00`,
+        },
+      };
+
+      axios
+        .post(
+          "https://strapi-production-db11.up.railway.app/api/llamadade-atencions",
+          dataJson,
+          config
+        )
+        .then((res) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Llamada ingresada",
+          });
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      reset();
+      firmarrhh.current.clear();
+      jefeInmediato.current.clear();
+      firmaColaborador.current.clear();
+      setSelectedEmployee("");
+    }
   };
   const fecha = moment(new Date()).format("DD/MM/YYYY");
 
