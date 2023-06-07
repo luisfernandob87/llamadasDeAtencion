@@ -233,6 +233,9 @@ function CrearLlamada() {
                 Llamada de atención escrita
               </option>
               <option value="Suspensión">Suspensión</option>
+              <option value="Descuento día y séptimo">
+                Descuento día y séptimo
+              </option>
             </select>
           </div>
           <div className="container">
