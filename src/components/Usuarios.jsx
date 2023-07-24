@@ -50,7 +50,7 @@ export default function Usuarios() {
     const rowText = rowSelected.toString();
     axios
       .get(
-        `https://strapi-production-db11.up.railway.app/api/users/${rowText}`,
+        `https://anvar-demo.onrender.com/api/users/${rowText}`,
         config
       )
       .then((res) => {
@@ -79,7 +79,7 @@ export default function Usuarios() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/users?filters[blocked][$eq]=false",
+        "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
         config
       )
       .then((res) => setUsuarios(res.data))
@@ -91,7 +91,7 @@ export default function Usuarios() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/users?populate=*&filters[blocked][$eq]=false",
+        "https://anvar-demo.onrender.com/api/users?populate=*&filters[blocked][$eq]=false",
         config
       )
       .then((res) => setUsuarios(res.data))
@@ -108,7 +108,7 @@ export default function Usuarios() {
 
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/users/${rowText}`,
+        `https://anvar-demo.onrender.com/api/users/${rowText}`,
         dataJson,
         config
       )
@@ -132,7 +132,7 @@ export default function Usuarios() {
 
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/auth/local/register",
+        "https://anvar-demo.onrender.com/api/auth/local/register",
         dataJson
       )
       .then(() => {
@@ -159,7 +159,7 @@ export default function Usuarios() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/users/${rowText}`,
+        `https://anvar-demo.onrender.com/api/users/${rowText}`,
         dataJson,
         config
       )

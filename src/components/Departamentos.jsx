@@ -44,7 +44,7 @@ export default function Departamentos() {
     const rowText = rowSelected.toString();
     axios
       .get(
-        `https://strapi-production-db11.up.railway.app/api/departamentos/${rowText}`,
+        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
         config
       )
       .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
@@ -69,7 +69,7 @@ export default function Departamentos() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamentos(res.data.data))
@@ -81,7 +81,7 @@ export default function Departamentos() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamentos(res.data.data))
@@ -99,7 +99,7 @@ export default function Departamentos() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/departamentos/${rowText}`,
+        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
         dataJson,
         config
       )
@@ -117,7 +117,7 @@ export default function Departamentos() {
     };
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/departamentos",
+        "https://anvar-demo.onrender.com/api/departamentos",
         dataJson,
         config
       )
@@ -142,7 +142,7 @@ export default function Departamentos() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/departamentos/${rowText}`,
+        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
         dataJson,
         config
       )

@@ -72,7 +72,7 @@ export default function Empleados() {
     const rowText = rowSelected.toString();
     axios
       .get(
-        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}/?populate=*`,
+        `https://anvar-demo.onrender.com/api/empleados/${rowText}/?populate=*`,
         config
       )
       .then((res) => {
@@ -118,7 +118,7 @@ export default function Empleados() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/empleados?populate=*&filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data))
@@ -130,7 +130,7 @@ export default function Empleados() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/empleados?populate=*&filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/empleados?populate=*&filters[estado][$eq]=true",
         config
       )
       .then((res) => setEmpleados(res.data.data))
@@ -139,7 +139,7 @@ export default function Empleados() {
       });
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/departamentos?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
         config
       )
       .then((res) => setDepartamento(res.data.data))
@@ -148,7 +148,7 @@ export default function Empleados() {
       });
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
         config
       )
       .then((res) => setCartera(res.data.data))
@@ -167,7 +167,7 @@ export default function Empleados() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}`,
+        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
         dataJson,
         config
       )
@@ -193,7 +193,7 @@ export default function Empleados() {
     console.log(dataJson);
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/empleados",
+        "https://anvar-demo.onrender.com/api/empleados",
         dataJson,
         config
       )
@@ -226,7 +226,7 @@ export default function Empleados() {
 
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/empleados/${rowText}`,
+        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
         dataJson,
         config
       )

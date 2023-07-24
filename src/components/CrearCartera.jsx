@@ -44,7 +44,7 @@ export default function CrearCartera() {
     const rowText = rowSelected.toString();
     axios
       .get(
-        `https://strapi-production-db11.up.railway.app/api/carteras/${rowText}`,
+        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
         config
       )
       .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
@@ -70,7 +70,7 @@ export default function CrearCartera() {
   const update = () => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
         config
       )
       .then((res) => setCartera(res.data.data))
@@ -82,7 +82,7 @@ export default function CrearCartera() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/carteras?filters[estado][$eq]=true",
+        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
         config
       )
       .then((res) => setCartera(res.data.data))
@@ -100,7 +100,7 @@ export default function CrearCartera() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/carteras/${rowText}`,
+        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
         dataJson,
         config
       )
@@ -118,7 +118,7 @@ export default function CrearCartera() {
     };
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/carteras",
+        "https://anvar-demo.onrender.com/api/carteras",
         dataJson,
         config
       )
@@ -143,7 +143,7 @@ export default function CrearCartera() {
     };
     axios
       .put(
-        `https://strapi-production-db11.up.railway.app/api/carteras/${rowText}`,
+        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
         dataJson,
         config
       )

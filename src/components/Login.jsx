@@ -13,7 +13,7 @@ function Login() {
   const submit = (data) => {
     axios
       .post(
-        "https://strapi-production-db11.up.railway.app/api/auth/local",
+        "https://anvar-demo.onrender.com/api/auth/local",
         data
       )
       .then((res) => {
@@ -28,7 +28,7 @@ function Login() {
 
         axios
           .get(
-            "https://strapi-production-db11.up.railway.app/api/users/me?populate=*",
+            "https://anvar-demo.onrender.com/api/users/me?populate=*",
             config
           )
           .then((res) => localStorage.setItem("rol", res.data.role.name));

@@ -83,7 +83,7 @@ export default function ConsultarLlamadas() {
   useEffect(() => {
     axios
       .get(
-        "https://strapi-production-db11.up.railway.app/api/llamadade-atencions?populate=*",
+        "https://anvar-demo.onrender.com/api/llamadade-atencions?populate=*",
         config
       )
       .then((res) => setLlamadas(res.data.data))
@@ -97,7 +97,7 @@ export default function ConsultarLlamadas() {
 
     axios
       .get(
-        `https://strapi-production-db11.up.railway.app/api/llamadade-atencions/${rowText}`,
+        `https://anvar-demo.onrender.com/api/llamadade-atencions/${rowText}`,
         config
       )
       .then((res) => {
