@@ -35,6 +35,8 @@ export default function Departamentos() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -43,10 +45,7 @@ export default function Departamentos() {
   const handleOpen2 = () => {
     const rowText = rowSelected.toString();
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
-        config
-      )
+      .get(`${page}/api/departamentos/${rowText}`, config)
       .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
       .catch(function (error) {
         console.log(error);
@@ -68,10 +67,7 @@ export default function Departamentos() {
 
   const update = () => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/departamentos?filters[estado][$eq]=true`, config)
       .then((res) => setDepartamentos(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -80,10 +76,7 @@ export default function Departamentos() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/departamentos?filters[estado][$eq]=true`, config)
       .then((res) => setDepartamentos(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -98,11 +91,7 @@ export default function Departamentos() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/departamentos/${rowText}`, dataJson, config)
       .then(() => update())
       .catch(function (error) {
         console.log(error);
@@ -116,11 +105,7 @@ export default function Departamentos() {
       },
     };
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/departamentos",
-        dataJson,
-        config
-      )
+      .post(`${page}/api/departamentos`, dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -141,11 +126,7 @@ export default function Departamentos() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/departamentos/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/departamentos/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();

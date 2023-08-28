@@ -18,6 +18,8 @@ function CrearEntradaTarde() {
 
   const { register, handleSubmit, reset } = useForm();
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   const config = {
     headers: {
       Authorization: "Bearer " + token,
@@ -26,28 +28,19 @@ function CrearEntradaTarde() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/empleados?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/empleados?filters[estado][$eq]=true`, config)
       .then((res) => setEmpleados(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/departamentos?filters[estado][$eq]=true`, config)
       .then((res) => setDepartamentos(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/puestos?filters[estado][$eq]=true`, config)
       .then((res) => setPuestos(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -137,11 +130,7 @@ function CrearEntradaTarde() {
         },
       };
       axios
-        .post(
-          "https://anvar-demo.onrender.com/api/llamadade-atencions",
-          dataJson,
-          config
-        )
+        .post(`${page}/api/llamadade-atencions`, dataJson, config)
         .then((res) => {
           const Toast = Swal.mixin({
             toast: true,

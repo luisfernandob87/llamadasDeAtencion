@@ -35,6 +35,8 @@ export default function Puestos() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -43,10 +45,7 @@ export default function Puestos() {
   const handleOpen2 = () => {
     const rowText = rowSelected.toString();
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
-        config
-      )
+      .get(`${page}/api/puestos/${rowText}`, config)
       .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
       .catch(function (error) {
         console.log(error);
@@ -69,10 +68,7 @@ export default function Puestos() {
 
   const update = () => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/puestos?filters[estado][$eq]=true`, config)
       .then((res) => setPuestos(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -81,10 +77,7 @@ export default function Puestos() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/puestos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/puestos?filters[estado][$eq]=true`, config)
       .then((res) => setPuestos(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -100,11 +93,7 @@ export default function Puestos() {
     };
 
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/puestos/${rowText}`, dataJson, config)
       .then(() => update())
       .catch(function (error) {
         console.log(error);
@@ -118,11 +107,7 @@ export default function Puestos() {
       },
     };
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/puestos",
-        dataJson,
-        config
-      )
+      .post(`${page}/api/puestos`, dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -143,11 +128,7 @@ export default function Puestos() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/puestos/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/puestos/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();

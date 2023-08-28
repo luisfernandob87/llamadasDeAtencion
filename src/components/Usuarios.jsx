@@ -40,6 +40,8 @@ export default function Usuarios() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -49,10 +51,7 @@ export default function Usuarios() {
   const handleOpen2 = () => {
     const rowText = rowSelected.toString();
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/users/${rowText}`,
-        config
-      )
+      .get(`${page}/api/users/${rowText}`, config)
       .then((res) => {
         setUpdUser(res.data.username);
         setUpdCorreo(res.data.email);
@@ -78,10 +77,7 @@ export default function Usuarios() {
 
   const update = () => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/users?filters[blocked][$eq]=false",
-        config
-      )
+      .get(`${page}/api/users?filters[blocked][$eq]=false`, config)
       .then((res) => setUsuarios(res.data))
       .catch(function (error) {
         console.log(error);
@@ -90,10 +86,7 @@ export default function Usuarios() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/users?populate=*&filters[blocked][$eq]=false",
-        config
-      )
+      .get(`${page}/api/users?populate=*&filters[blocked][$eq]=false`, config)
       .then((res) => setUsuarios(res.data))
       .catch(function (error) {
         console.log(error);
@@ -107,11 +100,7 @@ export default function Usuarios() {
     };
 
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/users/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/users/${rowText}`, dataJson, config)
       .then(() => update())
       .catch(function (error) {
         console.log(error);
@@ -131,10 +120,7 @@ export default function Usuarios() {
     };
 
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/auth/local/register",
-        dataJson
-      )
+      .post(`${page}/api/auth/local/register`, dataJson)
       .then(() => {
         handleClose(false);
         update();
@@ -158,11 +144,7 @@ export default function Usuarios() {
       password: passTexto,
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/users/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/users/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();

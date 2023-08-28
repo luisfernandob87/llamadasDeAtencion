@@ -61,6 +61,8 @@ export default function Empleados() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -71,10 +73,7 @@ export default function Empleados() {
   const handleOpen2 = () => {
     const rowText = rowSelected.toString();
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/empleados/${rowText}/?populate=*`,
-        config
-      )
+      .get(`${page}/api/empleados/${rowText}/?populate=*`, config)
       .then((res) => {
         setUpdNombre(res.data.data.attributes.nombreCompleto);
         setUpdDepartamento(
@@ -117,10 +116,7 @@ export default function Empleados() {
 
   const update = () => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/empleados?populate=*&filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/empleados?populate=*&filters[estado][$eq]=true`, config)
       .then((res) => setEmpleados(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -129,28 +125,19 @@ export default function Empleados() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/empleados?populate=*&filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/empleados?populate=*&filters[estado][$eq]=true`, config)
       .then((res) => setEmpleados(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/departamentos?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/departamentos?filters[estado][$eq]=true`, config)
       .then((res) => setDepartamento(res.data.data))
       .catch(function (error) {
         console.log(error);
       });
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/carteras?filters[estado][$eq]=true`, config)
       .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -166,11 +153,7 @@ export default function Empleados() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/empleados/${rowText}`, dataJson, config)
       .then(() => update())
       .catch(function (error) {
         console.log(error);
@@ -192,11 +175,7 @@ export default function Empleados() {
     };
     console.log(dataJson);
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/empleados",
-        dataJson,
-        config
-      )
+      .post(`${page}/api/empleados`, dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -225,11 +204,7 @@ export default function Empleados() {
     };
 
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/empleados/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/empleados/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();

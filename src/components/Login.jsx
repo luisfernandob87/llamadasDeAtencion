@@ -10,12 +10,11 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   const submit = (data) => {
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/auth/local",
-        data
-      )
+      .post(`${page}/api/auth/local`, data)
       .then((res) => {
         localStorage.setItem("usuario", res.data.user.username),
           localStorage.setItem("token", res.data.jwt);
@@ -27,10 +26,7 @@ function Login() {
         };
 
         axios
-          .get(
-            "https://anvar-demo.onrender.com/api/users/me?populate=*",
-            config
-          )
+          .get(`${page}/api/users/me?populate=*`, config)
           .then((res) => localStorage.setItem("rol", res.data.role.name));
 
         navigate("/menu");

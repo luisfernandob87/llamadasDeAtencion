@@ -35,6 +35,8 @@ export default function CrearCartera() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   //modal
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -43,10 +45,7 @@ export default function CrearCartera() {
   const handleOpen2 = () => {
     const rowText = rowSelected.toString();
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
-        config
-      )
+      .get(`${page}/api/carteras/${rowText}`, config)
       .then((res) => setDescActualizar(res.data.data.attributes.descripcion))
       .catch(function (error) {
         console.log(error);
@@ -69,10 +68,7 @@ export default function CrearCartera() {
 
   const update = () => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/carteras?filters[estado][$eq]=true`, config)
       .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -81,10 +77,7 @@ export default function CrearCartera() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/carteras?filters[estado][$eq]=true",
-        config
-      )
+      .get(`${page}/api/carteras?filters[estado][$eq]=true`, config)
       .then((res) => setCartera(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -99,11 +92,7 @@ export default function CrearCartera() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/carteras/${rowText}`, dataJson, config)
       .then(() => update())
       .catch(function (error) {
         console.log(error);
@@ -117,11 +106,7 @@ export default function CrearCartera() {
       },
     };
     axios
-      .post(
-        "https://anvar-demo.onrender.com/api/carteras",
-        dataJson,
-        config
-      )
+      .post(`${page}/api/carteras`, dataJson, config)
       .then(() => {
         handleClose(false);
         update();
@@ -142,11 +127,7 @@ export default function CrearCartera() {
       },
     };
     axios
-      .put(
-        `https://anvar-demo.onrender.com/api/carteras/${rowText}`,
-        dataJson,
-        config
-      )
+      .put(`${page}/api/carteras/${rowText}`, dataJson, config)
       .then(() => {
         handleClose2(false);
         update();

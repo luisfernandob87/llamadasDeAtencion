@@ -74,6 +74,8 @@ export default function ConsultarLlamadas() {
 
   const rol = localStorage.getItem("rol");
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   const config = {
     headers: {
       Authorization: "Bearer " + token,
@@ -82,10 +84,7 @@ export default function ConsultarLlamadas() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://anvar-demo.onrender.com/api/llamadade-atencions?populate=*",
-        config
-      )
+      .get(`${page}/api/llamadade-atencions?populate=*`, config)
       .then((res) => setLlamadas(res.data.data))
       .catch(function (error) {
         console.log(error);
@@ -96,10 +95,7 @@ export default function ConsultarLlamadas() {
     const rowText = rowSelected.toString();
 
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/llamadade-atencions/${rowText}`,
-        config
-      )
+      .get(`${page}/api/llamadade-atencions/${rowText}`, config)
       .then((res) => {
         const grado = res.data.data.attributes.grado;
         if (grado == "Llegada tarde") {

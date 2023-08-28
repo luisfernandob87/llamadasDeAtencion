@@ -11,6 +11,8 @@ function DetalleLlamada() {
 
   const [info, setInfo] = useState([]);
 
+  const page = "https://llamadasdeatencionbackend-rucz-dev.fl0.io";
+
   const config = {
     headers: {
       Authorization: "Bearer " + token,
@@ -19,10 +21,7 @@ function DetalleLlamada() {
 
   useEffect(() => {
     axios
-      .get(
-        `https://anvar-demo.onrender.com/api/llamadade-atencions/${idDetalle}?populate=*`,
-        config
-      )
+      .get(`${page}/api/llamadade-atencions/${idDetalle}?populate=*`, config)
       .then((res) => setInfo(res.data.data))
       .catch(function (error) {
         console.log(error);
